@@ -490,7 +490,10 @@ window.onload = function() {
     const castDebugLogger = cast.debug.CastDebugLogger.getInstance();
     castDebugLogger.setEnabled(true);
     castDebugLogger.info(1, "My Message");
+    console.log(Constants.APP_INFO, 'My Message 2');
+    castDebugLogger.info("nn", "My Message 3");
 
+    castDebugLogger.info(2, "My Message 4");
     FastCast.init(Constants.APP_NAMESPACE, function(){
         FastCast.onSenderConnected(function(event) {
             console.log(Constants.APP_INFO, 'Received Sender Connected event: ' + event.data);

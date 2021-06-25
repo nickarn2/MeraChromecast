@@ -70,81 +70,119 @@ var FastCast = (function(){
      * @returns {undefined}
      */
     function init(namespace, callback) {
-        window.castReceiverContext = cast.framework.CastReceiverContext.getInstance();
-        console.log(Constants.APP_INFO, TAG, 'Starting Receiver Manager');
+        const context = cast.framework.CastReceiverContext.getInstance();
+        const playerManager = context.getPlayerManager();
+        
+        playerManager.setMessageInterceptor(
+            cast.framework.messages.MessageType.LOAD, loadRequestData => {
+              const error = new cast.framework.messages.ErrorData(
+                              cast.framework.messages.ErrorType.LOAD_FAILED);
+              if (!loadRequestData.media) {
+                error.reason = cast.framework.messages.ErrorReason.INVALID_PARAM;
+                return error;
+              }
+        
+              if (!loadRequestData.media.entity) {
+                return loadRequestData;
+              }
+        
+              return thirdparty.fetchAssetAndAuth(loadRequestData.media.entity,
+                                                  loadRequestData.credentials)
+                .then(asset => {
+                  if (!asset) {
+                    throw cast.framework.messages.ErrorReason.INVALID_REQUEST;
+                  }
+        
+                  loadRequestData.media.contentUrl = asset.url;
+                  loadRequestData.media.metadata = asset.metadata;
+                  loadRequestData.media.tracks = asset.tracks;
+                  return loadRequestData;
+                }).catch(reason => {
+                  error.reason = reason; // cast.framework.messages.ErrorReason
+                  return error;
+                });
+            });
+        
+        context.start();
 
-        // handler for the 'ready' event
-        window.castReceiverContext.onReady = function(event) {
-            console.log(Constants.APP_INFO, TAG, 'Received Ready event: ' + JSON.stringify(event.data));
-            window.castReceiverContext.setApplicationState("Application status is ready...");
-        };
+        window.castReceiverContext = context;
 
-        // create a CastMessageBus to handle messages for a custom namespace
-        window.messageBus = window.castReceiverContext.getCastMessageBus( namespace );
+//nn commented
+        // window.castReceiverContext = cast.framework.CastReceiverContext.getInstance();
+        // console.log(Constants.APP_INFO, TAG, 'Starting Receiver Manager');
 
-        // handler for the CastMessageBus message event
-        window.messageBus.onMessage = function(event) {
-            tvApp.senderId = event.senderId;
+        // // handler for the 'ready' event
+        // window.castReceiverContext.onReady = function(event) {
+        //     console.log(Constants.APP_INFO, TAG, 'Received Ready event: ' + JSON.stringify(event.data));
+        //     window.castReceiverContext.setApplicationState("Application status is ready...");
+        // };
 
-            try {
-                var parsed = JSON.parse(event.data);
-                var event = parsed.event;
-                var type = parsed.media && parsed.media.type;
+        // // create a CastMessageBus to handle messages for a custom namespace
+        // window.messageBus = window.castReceiverContext.getCastMessageBus( namespace );
 
-                if (parsed.media) tvApp.stateObj = parsed;
+        // // handler for the CastMessageBus message event
+        // window.messageBus.onMessage = function(event) {
+        //     tvApp.senderId = event.senderId;
 
-                switch(event) {
-                    case 'LOAD_START':
-                        tvApp.stateObj.loadStarted = false;
-                        console.log(Constants.APP_INFO, TAG, type);
+        //     try {
+        //         var parsed = JSON.parse(event.data);
+        //         var event = parsed.event;
+        //         var type = parsed.media && parsed.media.type;
 
-                        type = type && typeof type == 'string' && type.toLowerCase();
-                        Utils.triggerEvent("load_start_"+type, parsed);
-                        break;
+        //         if (parsed.media) tvApp.stateObj = parsed;
 
-                    case 'RESUME':
-                    case 'PAUSE':
-                    case 'START_SLIDESHOW':
-                    case 'ADD_SLIDESHOW':
-                    case 'STOP_SLIDESHOW':
-                    case 'STOP_MEDIA':
-                    case 'NEXT_SLIDE':
-                    case 'PREVIOUS_SLIDE':
-                        event = event.toLowerCase();
-                        Utils.triggerEvent(event, parsed);
-                        break;
-                    case 'CHUNK_MESSAGE':
-                        chunkMessage = null;
-                        try {
-                            chunkMessage = new ChunkMessage(parsed.id, parsed.chunk_count);
-                            console.log(Constants.APP_INFO, TAG, 'Chunk message obj', chunkMessage);
-                        } catch(e) {
-                            console.log(Constants.APP_INFO, TAG, 'Chunk message obj creation error', e);
-                        }
-                        break;
-                    case 'CHUNK_PART':
-                        if (!chunkMessage) break;
-                        try {
-                            chunkMessage.addChunk(parsed.id, parsed.chunk_index, parsed.message);
-                            console.log(Constants.APP_INFO, TAG, 'Chunk message "'+ parsed.chunk_index +'" is added');
-                            if (chunkMessage.received) {
-                                var message = JSON.parse(chunkMessage.message);
-                                event = message.event && message.event.toLowerCase();
-                                console.log(Constants.APP_INFO, TAG, 'Chunk message received');
-                                Utils.triggerEvent(event, message);
-                            }
-                        } catch(e) {
-                            console.log(Constants.APP_INFO, TAG, 'Chunk part error', e);
-                        }
-                        break;
-                }
-            } catch (event) {
-                console.log(Constants.APP_INFO, TAG, 'Parse message error: ', event);
-            }
-        }
+        //         switch(event) {
+        //             case 'LOAD_START':
+        //                 tvApp.stateObj.loadStarted = false;
+        //                 console.log(Constants.APP_INFO, TAG, type);
 
-        // initialize the castReceiverContext with an application status message
-        window.castReceiverContext.start({statusText: "Application is starting"});
+        //                 type = type && typeof type == 'string' && type.toLowerCase();
+        //                 Utils.triggerEvent("load_start_"+type, parsed);
+        //                 break;
+
+        //             case 'RESUME':
+        //             case 'PAUSE':
+        //             case 'START_SLIDESHOW':
+        //             case 'ADD_SLIDESHOW':
+        //             case 'STOP_SLIDESHOW':
+        //             case 'STOP_MEDIA':
+        //             case 'NEXT_SLIDE':
+        //             case 'PREVIOUS_SLIDE':
+        //                 event = event.toLowerCase();
+        //                 Utils.triggerEvent(event, parsed);
+        //                 break;
+        //             case 'CHUNK_MESSAGE':
+        //                 chunkMessage = null;
+        //                 try {
+        //                     chunkMessage = new ChunkMessage(parsed.id, parsed.chunk_count);
+        //                     console.log(Constants.APP_INFO, TAG, 'Chunk message obj', chunkMessage);
+        //                 } catch(e) {
+        //                     console.log(Constants.APP_INFO, TAG, 'Chunk message obj creation error', e);
+        //                 }
+        //                 break;
+        //             case 'CHUNK_PART':
+        //                 if (!chunkMessage) break;
+        //                 try {
+        //                     chunkMessage.addChunk(parsed.id, parsed.chunk_index, parsed.message);
+        //                     console.log(Constants.APP_INFO, TAG, 'Chunk message "'+ parsed.chunk_index +'" is added');
+        //                     if (chunkMessage.received) {
+        //                         var message = JSON.parse(chunkMessage.message);
+        //                         event = message.event && message.event.toLowerCase();
+        //                         console.log(Constants.APP_INFO, TAG, 'Chunk message received');
+        //                         Utils.triggerEvent(event, message);
+        //                     }
+        //                 } catch(e) {
+        //                     console.log(Constants.APP_INFO, TAG, 'Chunk part error', e);
+        //                 }
+        //                 break;
+        //         }
+        //     } catch (event) {
+        //         console.log(Constants.APP_INFO, TAG, 'Parse message error: ', event);
+        //     }
+        // }
+
+        // // initialize the castReceiverContext with an application status message
+        // window.castReceiverContext.start({statusText: "Application is starting"});
         console.log(Constants.APP_INFO, TAG, 'Receiver Manager started');
 
         callback && callback();
