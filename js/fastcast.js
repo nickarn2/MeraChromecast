@@ -73,44 +73,78 @@ var FastCast = (function(){
         const context = cast.framework.CastReceiverContext.getInstance();
         const playerManager = context.getPlayerManager();
         
+
         playerManager.setMessageInterceptor(
-            cast.framework.messages.MessageType.LOAD, loadRequestData => {
-
-                console.log('??? LOAD ???');
-                console.log('!!!! LOAD !!!!!');
-
-
-              const error = new cast.framework.messages.ErrorData(
-                              cast.framework.messages.ErrorType.LOAD_FAILED);
-              if (!loadRequestData.media) {
-                error.reason = cast.framework.messages.ErrorReason.INVALID_PARAM;
-                console.log('nn LOAD error');
-                return error;
-              }
+            cast.framework.messages.MessageType.LOAD,
+            request => {
+                castDebugLogger.debug(LOG_TAG, 'Intercepting LOAD request');
         
-              if (!loadRequestData.media.entity) {
-                console.log('nn LOAD loadRequestData empty');
-                return loadRequestData;
-              }
+                return new Promise((resolve, reject) => {
+                    fetchMediaAsset(request.media.contentId).then(
+                        data => {
+                            let item = data[request.media.contentId];
+                            if (!item) {
+                                castDebugLogger.error(LOG_TAG, 'Content not found');
         
-              return thirdparty.fetchAssetAndAuth(loadRequestData.media.entity,
-                                                  loadRequestData.credentials)
-                .then(asset => {
-                    console.log('nn LOAD asset');
-                  if (!asset) {
-                    throw cast.framework.messages.ErrorReason.INVALID_REQUEST;
-                  }
+                                reject();
+                            } else {
+                                request.media.contentUrl = item.stream.hls;
+                                castDebugLogger.info(LOG_TAG,
+                                    'Playable URL:', request.media.contentUrl);
         
-                  loadRequestData.media.contentUrl = asset.url;
-                  loadRequestData.media.metadata = asset.metadata;
-                  loadRequestData.media.tracks = asset.tracks;
-                  console.log('nn LOAD loadRequestData OK');
-                  return loadRequestData;
-                }).catch(reason => {
-                  error.reason = reason; // cast.framework.messages.ErrorReason
-                  return error;
+                                resolve(request);
+                            }
+                        }
+                    );
                 });
-            });
+            }
+        );
+
+
+
+
+
+        // playerManager.setMessageInterceptor(
+        //     cast.framework.messages.MessageType.LOAD, loadRequestData => {
+
+        //         console.log('??? LOAD ???');
+        //         console.log('!!!! LOAD !!!!!');
+
+
+        //       const error = new cast.framework.messages.ErrorData(
+        //                       cast.framework.messages.ErrorType.LOAD_FAILED);
+        //       if (!loadRequestData.media) {
+        //         error.reason = cast.framework.messages.ErrorReason.INVALID_PARAM;
+        //         console.log('nn LOAD error');
+        //         return error;
+        //       }
+        
+        //       console.log('nn LOAD media ',  loadRequestData.media);
+        //       console.log('nn LOAD loadRequestData empty');
+
+        //       if (!loadRequestData.media.entity) {
+        //         console.log('nn LOAD loadRequestData empty');
+        //         return loadRequestData;
+        //       }
+        
+        //       return thirdparty.fetchAssetAndAuth(loadRequestData.media.entity,
+        //                                           loadRequestData.credentials)
+        //         .then(asset => {
+        //             console.log('nn LOAD asset');
+        //           if (!asset) {
+        //             throw cast.framework.messages.ErrorReason.INVALID_REQUEST;
+        //           }
+        
+        //           loadRequestData.media.contentUrl = asset.url;
+        //           loadRequestData.media.metadata = asset.metadata;
+        //           loadRequestData.media.tracks = asset.tracks;
+        //           console.log('nn LOAD loadRequestData OK');
+        //           return loadRequestData;
+        //         }).catch(reason => {
+        //           error.reason = reason; // cast.framework.messages.ErrorReason
+        //           return error;
+        //         });
+        //     });
         
         context.start();
 
