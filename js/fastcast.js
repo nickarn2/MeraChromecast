@@ -70,7 +70,7 @@ var FastCast = (function(){
      * @returns {undefined}
      */
     function init(namespace, callback) {
-        window.castReceiverContext = cast.receiver.CastReceiverContext.getInstance();
+        window.castReceiverContext = cast.framework.CastReceiverContext.getInstance();
         console.log(Constants.APP_INFO, TAG, 'Starting Receiver Manager');
 
         // handler for the 'ready' event
