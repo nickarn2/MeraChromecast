@@ -489,6 +489,7 @@ window.onload = function() {
     //nn old cast.framework.logger.setLevelValue(cast.framework.LoggerLevel.DEBUG);
     const castDebugLogger = cast.debug.CastDebugLogger.getInstance();
     castDebugLogger.setEnabled(true);
+    castDebugLogger.info(1, "My Message");
 
     FastCast.init(Constants.APP_NAMESPACE, function(){
         FastCast.onSenderConnected(function(event) {
