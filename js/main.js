@@ -486,7 +486,9 @@ window.onload = function() {
     tvApp.init();
     // Turn on debugging so that you can see what is going on.  Please turn this off
     // on your production receivers to improve performance.
-    cast.framework.logger.setLevelValue(cast.framework.LoggerLevel.DEBUG);
+    //nn old cast.framework.logger.setLevelValue(cast.framework.LoggerLevel.DEBUG);
+    const castDebugLogger = cast.debug.CastDebugLogger.getInstance();
+    castDebugLogger.setEnabled(true);
 
     FastCast.init(Constants.APP_NAMESPACE, function(){
         FastCast.onSenderConnected(function(event) {
