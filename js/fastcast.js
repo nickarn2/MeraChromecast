@@ -72,7 +72,7 @@ var FastCast = (function(){
     function init(namespace, callback) {
         const context = cast.framework.CastReceiverContext.getInstance();
         const playerManager = context.getPlayerManager();
-        
+        const castDebugLogger = cast.debug.CastDebugLogger.getInstance();
 
         playerManager.setMessageInterceptor(
             cast.framework.messages.MessageType.LOAD,
