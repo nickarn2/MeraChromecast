@@ -73,6 +73,7 @@ var FastCast = (function(){
         const context = cast.framework.CastReceiverContext.getInstance();
         const playerManager = context.getPlayerManager();
         const castDebugLogger = cast.debug.CastDebugLogger.getInstance();
+        const LOG_TAG = 'MeraChrome';
 
         playerManager.setMessageInterceptor(
             cast.framework.messages.MessageType.LOAD,
