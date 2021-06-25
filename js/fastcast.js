@@ -75,6 +75,9 @@ var FastCast = (function(){
         
         playerManager.setMessageInterceptor(
             cast.framework.messages.MessageType.LOAD, loadRequestData => {
+
+                console.log('!!!! LOAD !!!!!');
+
               const error = new cast.framework.messages.ErrorData(
                               cast.framework.messages.ErrorType.LOAD_FAILED);
               if (!loadRequestData.media) {
