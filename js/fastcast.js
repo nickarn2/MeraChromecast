@@ -26,7 +26,7 @@ var FastCast = (function(){
     }
 
     /**
-     * Client connect from castReceiverManager.
+     * Client connect from castReceiverContext.
      * @func onSenderConnected
      * @memberof module:FastCast
      * @private
@@ -39,7 +39,7 @@ var FastCast = (function(){
     }
 
     /**
-     * Client disconnect from castReceiverManager.
+     * Client disconnect from castReceiverContext.
      * @func onSenderDisconnected
      * @memberof module:FastCast
      * @private
@@ -53,9 +53,9 @@ var FastCast = (function(){
 
     function connect() {
         // handler for 'senderconnected' event
-        window.castReceiverManager.onSenderConnected = onSenderConnected;
+        window.castReceiverContext.onSenderConnected = onSenderConnected;
         // handler for 'senderdisconnected' event
-        window.castReceiverManager.onSenderDisconnected = onSenderDisconnected;
+        window.castReceiverContext.onSenderDisconnected = onSenderDisconnected;
     }
 
     /**
@@ -70,17 +70,17 @@ var FastCast = (function(){
      * @returns {undefined}
      */
     function init(namespace, callback) {
-        window.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
+        window.castReceiverContext = cast.receiver.CastReceiverContext.getInstance();
         console.log(Constants.APP_INFO, TAG, 'Starting Receiver Manager');
 
         // handler for the 'ready' event
-        window.castReceiverManager.onReady = function(event) {
+        window.castReceiverContext.onReady = function(event) {
             console.log(Constants.APP_INFO, TAG, 'Received Ready event: ' + JSON.stringify(event.data));
-            window.castReceiverManager.setApplicationState("Application status is ready...");
+            window.castReceiverContext.setApplicationState("Application status is ready...");
         };
 
         // create a CastMessageBus to handle messages for a custom namespace
-        window.messageBus = window.castReceiverManager.getCastMessageBus( namespace );
+        window.messageBus = window.castReceiverContext.getCastMessageBus( namespace );
 
         // handler for the CastMessageBus message event
         window.messageBus.onMessage = function(event) {
@@ -143,8 +143,8 @@ var FastCast = (function(){
             }
         }
 
-        // initialize the CastReceiverManager with an application status message
-        window.castReceiverManager.start({statusText: "Application is starting"});
+        // initialize the castReceiverContext with an application status message
+        window.castReceiverContext.start({statusText: "Application is starting"});
         console.log(Constants.APP_INFO, TAG, 'Receiver Manager started');
 
         callback && callback();
