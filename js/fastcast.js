@@ -76,22 +76,27 @@ var FastCast = (function(){
         playerManager.setMessageInterceptor(
             cast.framework.messages.MessageType.LOAD, loadRequestData => {
 
+                console.log('??? LOAD ???');
                 console.log('!!!! LOAD !!!!!');
+
 
               const error = new cast.framework.messages.ErrorData(
                               cast.framework.messages.ErrorType.LOAD_FAILED);
               if (!loadRequestData.media) {
                 error.reason = cast.framework.messages.ErrorReason.INVALID_PARAM;
+                console.log('nn LOAD error');
                 return error;
               }
         
               if (!loadRequestData.media.entity) {
+                console.log('nn LOAD loadRequestData empty');
                 return loadRequestData;
               }
         
               return thirdparty.fetchAssetAndAuth(loadRequestData.media.entity,
                                                   loadRequestData.credentials)
                 .then(asset => {
+                    console.log('nn LOAD asset');
                   if (!asset) {
                     throw cast.framework.messages.ErrorReason.INVALID_REQUEST;
                   }
@@ -99,6 +104,7 @@ var FastCast = (function(){
                   loadRequestData.media.contentUrl = asset.url;
                   loadRequestData.media.metadata = asset.metadata;
                   loadRequestData.media.tracks = asset.tracks;
+                  console.log('nn LOAD loadRequestData OK');
                   return loadRequestData;
                 }).catch(reason => {
                   error.reason = reason; // cast.framework.messages.ErrorReason
