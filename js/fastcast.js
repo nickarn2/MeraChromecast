@@ -115,13 +115,20 @@ context.start({ playbackConfig: playbackConfig });
         //     window.castReceiverContext.setApplicationState("Application status is ready...");
         // };
         
-        playerManager.addEventListener(
+        context.addEventListener(
             //cast.framework.events.EventType.PLAYER_LOAD_COMPLETE,
             cast.framework.system.ReadyEvent,
             () => {
               console.log("!!! ReadyEvent !!!");
             }
           );        
+        // playerManager.addEventListener(
+        //     //cast.framework.events.EventType.PLAYER_LOAD_COMPLETE,
+        //     cast.framework.system.ReadyEvent,
+        //     () => {
+        //       console.log("!!! ReadyEvent !!!");
+        //     }
+        // );        
 
         // // create a CastMessageBus to handle messages for a custom namespace
         // window.messageBus = window.castReceiverContext.getCastMessageBus( namespace );
