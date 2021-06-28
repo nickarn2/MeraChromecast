@@ -115,14 +115,15 @@ context.start({ playbackConfig: playbackConfig });
         //     window.castReceiverContext.setApplicationState("Application status is ready...");
         // };
         
-        context.addEventListener(
-            //cast.framework.events.EventType.PLAYER_LOAD_COMPLETE,
-            //cast.framework.system.ReadyEvent,
-            cast.framework.CastReceiverContext.EventType.ReadyEvent,
-            () => {
-              console.log("!!! ReadyEvent  111 !!!");
-            }
-          );  
+        //nn bad attempt
+        // context.addEventListener(
+        //     //cast.framework.events.EventType.PLAYER_LOAD_COMPLETE,
+        //     //cast.framework.system.ReadyEvent,
+        //     cast.framework.CastReceiverContext.EventType.ReadyEvent,
+        //     () => {
+        //       console.log("!!! ReadyEvent  111 !!!");
+        //     }
+        //   );  
           context.addEventListener(
             //cast.framework.events.EventType.PLAYER_LOAD_COMPLETE,
             //cast.framework.system.ReadyEvent,
