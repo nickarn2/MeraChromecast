@@ -78,20 +78,20 @@ var FastCast = (function(){
         const castDebugLogger = cast.debug.CastDebugLogger.getInstance();
         const LOG_TAG = 'MeraChrome';
 //nn1
-// const CUSTOM_CHANNEL = "urn:x-cast:com.custApp";
-// context.addCustomMessageListener(CUSTOM_CHANNEL, function(customEvent) {
-//       // handle customEvent.
-//     console.log("addCustomMessageListener: " + customEvent);
-// });
+const CUSTOM_CHANNEL = "urn:x-cast:com.custApp";
+context.addCustomMessageListener(CUSTOM_CHANNEL, function(customEvent) {
+      // handle customEvent.
+    console.log("addCustomMessageListener: " + customEvent);
+});
 // intercept the LOAD request to be able to read in a contentId and get data
-// playerManager.setMessageInterceptor(
-//     cast.framework.messages.MessageType.LOAD,
-//     loadRequestData => {
-//         debugger;
-//         console.log("loadRequestData" + loadRequestData);
-//         return loadRequestData;
-//     }
-// );
+playerManager.setMessageInterceptor(
+    cast.framework.messages.MessageType.LOAD,
+    loadRequestData => {
+    //nn !!    debugger;
+        console.log("loadRequestData" + JSON.stringify(loadRequestData));
+        return loadRequestData;
+    }
+);
 playerManager.addEventListener(
   cast.framework.events.category.CORE,
   event => {
@@ -101,7 +101,7 @@ playerManager.addEventListener(
 );
 const playbackConfig = new cast.framework.PlaybackConfig();
 playbackConfig.autoResumeDuration = 5;
-// context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
+context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
 context.start({ playbackConfig: playbackConfig });        
 
         window.castReceiverContext = context;
