@@ -117,9 +117,18 @@ context.start({ playbackConfig: playbackConfig });
         
         context.addEventListener(
             //cast.framework.events.EventType.PLAYER_LOAD_COMPLETE,
-            cast.framework.system.ReadyEvent,
+            //cast.framework.system.ReadyEvent,
+            cast.framework.CastReceiverContext.EventType.ReadyEvent,
             () => {
-              console.log("!!! ReadyEvent !!!");
+              console.log("!!! ReadyEvent  111 !!!");
+            }
+          );  
+          context.addEventListener(
+            //cast.framework.events.EventType.PLAYER_LOAD_COMPLETE,
+            //cast.framework.system.ReadyEvent,
+            cast.framework.CastReceiverContext.ReadyEvent,
+            () => {
+              console.log("!!! ReadyEvent  222 !!!");
             }
           );  
           context.addEventListener(
@@ -130,13 +139,13 @@ context.start({ playbackConfig: playbackConfig });
             }
           );
           
-        // playerManager.addEventListener(
-        //     //cast.framework.events.EventType.PLAYER_LOAD_COMPLETE,
-        //     cast.framework.system.ReadyEvent,
-        //     () => {
-        //       console.log("!!! ReadyEvent !!!");
-        //     }
-        // );        
+        playerManager.addEventListener(
+            //cast.framework.events.EventType.PLAYER_LOAD_COMPLETE,
+            cast.framework.CastReceiverContext.EventType.READY,
+            () => {
+              console.log("!!! ReadyEvent !!!");
+            }
+        );        
 
         // // create a CastMessageBus to handle messages for a custom namespace
         // window.messageBus = window.castReceiverContext.getCastMessageBus( namespace );
