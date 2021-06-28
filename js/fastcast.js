@@ -121,7 +121,15 @@ context.start({ playbackConfig: playbackConfig });
             () => {
               console.log("!!! ReadyEvent !!!");
             }
-          );        
+          );  
+          context.addEventListener(
+            cast.framework.events.category.CORE,
+            event => {
+              console.log("!!! context = " + event.type);
+              console.log("Context", "context event: " + JSON.stringify(event));
+            }
+          );
+          
         // playerManager.addEventListener(
         //     //cast.framework.events.EventType.PLAYER_LOAD_COMPLETE,
         //     cast.framework.system.ReadyEvent,
