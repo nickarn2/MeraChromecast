@@ -72,82 +72,23 @@ var FastCast = (function(){
     function init(namespace, callback) {
         const context = cast.framework.CastReceiverContext.getInstance();
         const playerManager = context.getPlayerManager();
+        const options = new cast.framework.CastReceiverOptions();
+        options.maxInactivity = 3600;
+
         const castDebugLogger = cast.debug.CastDebugLogger.getInstance();
         const LOG_TAG = 'MeraChrome';
-
-        // playerManager.setMessageInterceptor(
-        //     cast.framework.messages.MessageType.LOAD,
-        //     request => {
-        //         castDebugLogger.debug(LOG_TAG, 'Intercepting LOAD request');
-        
-        //         return new Promise((resolve, reject) => {
-        //             fetchMediaAsset(request.media.contentId).then(
-        //                 data => {
-        //                     let item = data[request.media.contentId];
-        //                     if (!item) {
-        //                         castDebugLogger.error(LOG_TAG, 'Content not found');
-        
-        //                         reject();
-        //                     } else {
-        //                         request.media.contentUrl = item.stream.hls;
-        //                         castDebugLogger.info(LOG_TAG,
-        //                             'Playable URL:', request.media.contentUrl);
-        
-        //                         resolve(request);
-        //                     }
-        //                 }
-        //             );
-        //         });
-        //     }
-        // );
-
-
-
-
-
-        // playerManager.setMessageInterceptor(
-        //     cast.framework.messages.MessageType.LOAD, loadRequestData => {
-
-        //         console.log('??? LOAD ???');
-        //         console.log('!!!! LOAD !!!!!');
-
-
-        //       const error = new cast.framework.messages.ErrorData(
-        //                       cast.framework.messages.ErrorType.LOAD_FAILED);
-        //       if (!loadRequestData.media) {
-        //         error.reason = cast.framework.messages.ErrorReason.INVALID_PARAM;
-        //         console.log('nn LOAD error');
-        //         return error;
-        //       }
-        
-        //       console.log('nn LOAD media ',  loadRequestData.media);
-        //       console.log('nn LOAD loadRequestData empty');
-
-        //       if (!loadRequestData.media.entity) {
-        //         console.log('nn LOAD loadRequestData empty');
-        //         return loadRequestData;
-        //       }
-        
-        //       return thirdparty.fetchAssetAndAuth(loadRequestData.media.entity,
-        //                                           loadRequestData.credentials)
-        //         .then(asset => {
-        //             console.log('nn LOAD asset');
-        //           if (!asset) {
-        //             throw cast.framework.messages.ErrorReason.INVALID_REQUEST;
-        //           }
-        
-        //           loadRequestData.media.contentUrl = asset.url;
-        //           loadRequestData.media.metadata = asset.metadata;
-        //           loadRequestData.media.tracks = asset.tracks;
-        //           console.log('nn LOAD loadRequestData OK');
-        //           return loadRequestData;
-        //         }).catch(reason => {
-        //           error.reason = reason; // cast.framework.messages.ErrorReason
-        //           return error;
-        //         });
-        //     });
-        
-        context.start();
+//nn1
+playerManager.addEventListener(
+  cast.framework.events.category.CORE,
+  event => {
+    console.log("playerManager = " + event.type);
+    console.log("CastContext", "Core event: " + JSON.stringify(event));
+  }
+);
+const playbackConfig = new cast.framework.PlaybackConfig();
+playbackConfig.autoResumeDuration = 5;
+context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
+context.start({ playbackConfig: playbackConfig });        
 
         window.castReceiverContext = context;
 
