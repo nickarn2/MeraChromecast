@@ -71,6 +71,7 @@ var FastCast = (function(){
      */
     function init(namespace, callback) {
         const context = cast.framework.CastReceiverContext.getInstance();
+        console.log(Constants.APP_INFO, TAG, 'Starting Receiver Manager');
         const playerManager = context.getPlayerManager();
         const options = new cast.framework.CastReceiverOptions();
         options.maxInactivity = 3600;
@@ -107,14 +108,20 @@ context.start({ playbackConfig: playbackConfig });
         window.castReceiverContext = context;
 
 //nn commented
-        // window.castReceiverContext = cast.framework.CastReceiverContext.getInstance();
-        // console.log(Constants.APP_INFO, TAG, 'Starting Receiver Manager');
 
         // // handler for the 'ready' event
         // window.castReceiverContext.onReady = function(event) {
         //     console.log(Constants.APP_INFO, TAG, 'Received Ready event: ' + JSON.stringify(event.data));
         //     window.castReceiverContext.setApplicationState("Application status is ready...");
         // };
+        
+        playerManager.addEventListener(
+            //cast.framework.events.EventType.PLAYER_LOAD_COMPLETE,
+            cast.framework.system.ReadyEvent,
+            () => {
+              console.log("!!! ReadyEvent !!!");
+            }
+          );        
 
         // // create a CastMessageBus to handle messages for a custom namespace
         // window.messageBus = window.castReceiverContext.getCastMessageBus( namespace );
