@@ -75,31 +75,31 @@ var FastCast = (function(){
         const castDebugLogger = cast.debug.CastDebugLogger.getInstance();
         const LOG_TAG = 'MeraChrome';
 
-        playerManager.setMessageInterceptor(
-            cast.framework.messages.MessageType.LOAD,
-            request => {
-                castDebugLogger.debug(LOG_TAG, 'Intercepting LOAD request');
+        // playerManager.setMessageInterceptor(
+        //     cast.framework.messages.MessageType.LOAD,
+        //     request => {
+        //         castDebugLogger.debug(LOG_TAG, 'Intercepting LOAD request');
         
-                return new Promise((resolve, reject) => {
-                    fetchMediaAsset(request.media.contentId).then(
-                        data => {
-                            let item = data[request.media.contentId];
-                            if (!item) {
-                                castDebugLogger.error(LOG_TAG, 'Content not found');
+        //         return new Promise((resolve, reject) => {
+        //             fetchMediaAsset(request.media.contentId).then(
+        //                 data => {
+        //                     let item = data[request.media.contentId];
+        //                     if (!item) {
+        //                         castDebugLogger.error(LOG_TAG, 'Content not found');
         
-                                reject();
-                            } else {
-                                request.media.contentUrl = item.stream.hls;
-                                castDebugLogger.info(LOG_TAG,
-                                    'Playable URL:', request.media.contentUrl);
+        //                         reject();
+        //                     } else {
+        //                         request.media.contentUrl = item.stream.hls;
+        //                         castDebugLogger.info(LOG_TAG,
+        //                             'Playable URL:', request.media.contentUrl);
         
-                                resolve(request);
-                            }
-                        }
-                    );
-                });
-            }
-        );
+        //                         resolve(request);
+        //                     }
+        //                 }
+        //             );
+        //         });
+        //     }
+        // );
 
 
 
