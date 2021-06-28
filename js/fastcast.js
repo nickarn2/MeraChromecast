@@ -100,6 +100,25 @@ playerManager.addEventListener(
     console.log("CastContext", "Core event: " + JSON.stringify(event));
   }
 );
+
+//nn2
+context.addEventListener(
+    //cast.framework.events.EventType.PLAYER_LOAD_COMPLETE,
+    //cast.framework.system.ReadyEvent,
+    cast.framework.CastReceiverContext.ReadyEvent,
+    () => {
+      console.log("!!! ReadyEvent  222 !!!");
+    }
+  );  
+  context.addEventListener(
+    cast.framework.events.category.CORE,
+    event => {
+      console.log("!!! context = " + event.type);
+      console.log("Context", "context event: " + JSON.stringify(event));
+    }
+  );
+//nn2
+
 const playbackConfig = new cast.framework.PlaybackConfig();
 playbackConfig.autoResumeDuration = 5;
 context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
@@ -124,21 +143,6 @@ context.start({ playbackConfig: playbackConfig });
         //       console.log("!!! ReadyEvent  111 !!!");
         //     }
         //   );  
-          context.addEventListener(
-            //cast.framework.events.EventType.PLAYER_LOAD_COMPLETE,
-            //cast.framework.system.ReadyEvent,
-            cast.framework.CastReceiverContext.ReadyEvent,
-            () => {
-              console.log("!!! ReadyEvent  222 !!!");
-            }
-          );  
-          context.addEventListener(
-            cast.framework.events.category.CORE,
-            event => {
-              console.log("!!! context = " + event.type);
-              console.log("Context", "context event: " + JSON.stringify(event));
-            }
-          );
           
         //nn bad attempt
           // playerManager.addEventListener(
