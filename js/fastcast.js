@@ -88,8 +88,12 @@ context.addCustomMessageListener(CUSTOM_CHANNEL, function(customEvent) {
 playerManager.setMessageInterceptor(
     cast.framework.messages.MessageType.LOAD,
     loadRequestData => {
-    //nn !!    debugger;
+    //nn !!    
+        debugger;
         console.log("loadRequestData" + JSON.stringify(loadRequestData));
+        if (loadRequestData.contentType == "image/jpeg") {
+            return null;
+        }
         return loadRequestData;
     }
 );
@@ -103,6 +107,7 @@ playerManager.addEventListener(
 
 //nn2
 // handler for the 'ready' event
+// works but does not show video :(
 // context.addEventListener(cast.framework.system.EventType.READY,  function(event) {
 //     console.log("!!! ReadyEvent  !!!");
 //     console.log(Constants.APP_INFO, TAG, 'Received Ready event: ' + JSON.stringify(event.data));
@@ -130,12 +135,6 @@ context.start({ playbackConfig: playbackConfig });
 
 //nn commented
 
-        // // handler for the 'ready' event
-        // window.castReceiverContext.onReady = function(event) {
-        //     console.log(Constants.APP_INFO, TAG, 'Received Ready event: ' + JSON.stringify(event.data));
-        //     window.castReceiverContext.setApplicationState("Application status is ready...");
-        // };
-        
         // // create a CastMessageBus to handle messages for a custom namespace
         // window.messageBus = window.castReceiverContext.getCastMessageBus( namespace );
 
