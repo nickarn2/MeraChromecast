@@ -65,7 +65,7 @@ var tvApp = {
             tvApp.stateObj = e.detail;
             if (!tvApp.stateObj.media) return;
 
-            var url = tvApp.stateObj.media.url,
+            var url = tvApp.stateObj.media.contentUrl, //nn tvApp.stateObj.media.url,
                 orientation = tvApp.stateObj.media.exif,
                 hasOrientation = orientation !== null && orientation !== undefined;
 
