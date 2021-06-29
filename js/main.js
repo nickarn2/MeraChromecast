@@ -307,7 +307,8 @@ var tvApp = {
             tvApp.stateObj.loadStarted = false;
 
             if (!tvApp.stateObj.media) return;
-            var url = tvApp.stateObj.media.url;
+            debugger;
+            var url = tvApp.stateObj.media.contentUrl;
             console.debug(Constants.APP_INFO, "Received command to play url: " + url);
 
             /*
@@ -395,11 +396,11 @@ var tvApp = {
                  */
                 tvApp.playerContainer.addClass("displayed");
                 /* End fix */
-                tvApp.player.play(media.url); // start media playback
+                tvApp.player.play(media.contentUrl); // start media playback
             } else {
                 var message = {
                     "event": "MEDIA_PLAYBACK",
-                    "message": tvApp.stateObj.media && tvApp.stateObj.media.url || "",
+                    "message": tvApp.stateObj.media && tvApp.stateObj.media.contentUrl || "",
                     "media_event": { "event" : Constants.MediaEvent.MEDIA_RESUME }
                 };
                 Utils.sendMessageToSender(message);
