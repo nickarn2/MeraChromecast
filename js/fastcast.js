@@ -123,6 +123,8 @@ playerManager.addEventListener(
         // };
         context.addEventListener(cast.framework.system.EventType.READY,  function(event) {
             console.log("!!! ReadyEvent  !!!");
+            console.log(Constants.APP_INFO, TAG, 'Received Ready event: ' + JSON.stringify(event.data));
+            window.castReceiverContext.setApplicationState("Application status is ready...");
             const deviceCapabilities = context.getDeviceCapabilities();
             if (deviceCapabilities &&
                 deviceCapabilities[cast.framework.system.DeviceCapabilities.IS_HDR_SUPPORTED]) {
