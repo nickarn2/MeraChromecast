@@ -102,38 +102,41 @@ playerManager.addEventListener(
 );
 
 //nn2
-context.addEventListener(cast.framework.system.EventType.READY, () => {
-    console.log("!!! ReadyEvent  333 !!!");
-    const deviceCapabilities = context.getDeviceCapabilities();
-    if (deviceCapabilities &&
-        deviceCapabilities[cast.framework.system.DeviceCapabilities.IS_HDR_SUPPORTED]) {
-      // Write your own event handling code, for example
-      // using the deviceCapabilities[cast.framework.system.DeviceCapabilities.IS_HDR_SUPPORTED] value
-    }
-    if (deviceCapabilities &&
-        deviceCapabilities[cast.framework.system.DeviceCapabilities.IS_DV_SUPPORTED]) {
-      // Write your own event handling code, for example
-      // using the deviceCapabilities[cast.framework.system.DeviceCapabilities.IS_DV_SUPPORTED] value
-    }
-  });
-
-context.addEventListener(
-    //cast.framework.events.EventType.PLAYER_LOAD_COMPLETE,
-    //cast.framework.system.ReadyEvent,
-    cast.framework.CastReceiverContext.ReadyEvent,
-    () => {
-      console.log("!!! ReadyEvent  222 !!!");
-    }
-  );  
-  context.addEventListener(
-    cast.framework.events.category.CORE,
-    event => {
-      console.log("!!! context = " + event.type);
-      console.log("Context", "context event: " + JSON.stringify(event));
-    }
-  );
-  //cast.framework.system.EventType
-//nn2
+// context.addEventListener(cast.framework.system.EventType.READY, () => {
+//     console.log("!!! ReadyEvent  !!!");
+//     const deviceCapabilities = context.getDeviceCapabilities();
+//     if (deviceCapabilities &&
+//         deviceCapabilities[cast.framework.system.DeviceCapabilities.IS_HDR_SUPPORTED]) {
+//       // Write your own event handling code, for example
+//       // using the deviceCapabilities[cast.framework.system.DeviceCapabilities.IS_HDR_SUPPORTED] value
+//     }
+//     if (deviceCapabilities &&
+//         deviceCapabilities[cast.framework.system.DeviceCapabilities.IS_DV_SUPPORTED]) {
+//       // Write your own event handling code, for example
+//       // using the deviceCapabilities[cast.framework.system.DeviceCapabilities.IS_DV_SUPPORTED] value
+//     }
+//   });
+        // // handler for the 'ready' event
+        // window.castReceiverContext.onReady = function(event) {
+        //     console.log(Constants.APP_INFO, TAG, 'Received Ready event: ' + JSON.stringify(event.data));
+        //     window.castReceiverContext.setApplicationState("Application status is ready...");
+        // };
+        context.addEventListener(cast.framework.system.EventType.READY,  function(event) {
+            console.log("!!! ReadyEvent  !!!");
+            const deviceCapabilities = context.getDeviceCapabilities();
+            if (deviceCapabilities &&
+                deviceCapabilities[cast.framework.system.DeviceCapabilities.IS_HDR_SUPPORTED]) {
+              // Write your own event handling code, for example
+              // using the deviceCapabilities[cast.framework.system.DeviceCapabilities.IS_HDR_SUPPORTED] value
+            }
+            if (deviceCapabilities &&
+                deviceCapabilities[cast.framework.system.DeviceCapabilities.IS_DV_SUPPORTED]) {
+              // Write your own event handling code, for example
+              // using the deviceCapabilities[cast.framework.system.DeviceCapabilities.IS_DV_SUPPORTED] value
+            }
+          });
+        
+  //nn2
 
 const playbackConfig = new cast.framework.PlaybackConfig();
 playbackConfig.autoResumeDuration = 5;
@@ -150,25 +153,6 @@ context.start({ playbackConfig: playbackConfig });
         //     window.castReceiverContext.setApplicationState("Application status is ready...");
         // };
         
-        //nn bad attempt
-        // context.addEventListener(
-        //     //cast.framework.events.EventType.PLAYER_LOAD_COMPLETE,
-        //     //cast.framework.system.ReadyEvent,
-        //     cast.framework.CastReceiverContext.EventType.ReadyEvent,
-        //     () => {
-        //       console.log("!!! ReadyEvent  111 !!!");
-        //     }
-        //   );  
-          
-        //nn bad attempt
-          // playerManager.addEventListener(
-        //     //cast.framework.events.EventType.PLAYER_LOAD_COMPLETE,
-        //     cast.framework.CastReceiverContext.EventType.READY,
-        //     () => {
-        //       console.log("!!! ReadyEvent !!!");
-        //     }
-        // );        
-
         // // create a CastMessageBus to handle messages for a custom namespace
         // window.messageBus = window.castReceiverContext.getCastMessageBus( namespace );
 
