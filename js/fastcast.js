@@ -102,8 +102,11 @@ playerManager.addEventListener(
 );
 
 //nn2
-// context.addEventListener(cast.framework.system.EventType.READY, () => {
+// handler for the 'ready' event
+// context.addEventListener(cast.framework.system.EventType.READY,  function(event) {
 //     console.log("!!! ReadyEvent  !!!");
+//     console.log(Constants.APP_INFO, TAG, 'Received Ready event: ' + JSON.stringify(event.data));
+//     window.castReceiverContext.setApplicationState("Application status is ready...");
 //     const deviceCapabilities = context.getDeviceCapabilities();
 //     if (deviceCapabilities &&
 //         deviceCapabilities[cast.framework.system.DeviceCapabilities.IS_HDR_SUPPORTED]) {
@@ -115,30 +118,8 @@ playerManager.addEventListener(
 //       // Write your own event handling code, for example
 //       // using the deviceCapabilities[cast.framework.system.DeviceCapabilities.IS_DV_SUPPORTED] value
 //     }
-//   });
-        // // handler for the 'ready' event
-        // window.castReceiverContext.onReady = function(event) {
-        //     console.log(Constants.APP_INFO, TAG, 'Received Ready event: ' + JSON.stringify(event.data));
-        //     window.castReceiverContext.setApplicationState("Application status is ready...");
-        // };
-        context.addEventListener(cast.framework.system.EventType.READY,  function(event) {
-            console.log("!!! ReadyEvent  !!!");
-            console.log(Constants.APP_INFO, TAG, 'Received Ready event: ' + JSON.stringify(event.data));
-            window.castReceiverContext.setApplicationState("Application status is ready...");
-            const deviceCapabilities = context.getDeviceCapabilities();
-            if (deviceCapabilities &&
-                deviceCapabilities[cast.framework.system.DeviceCapabilities.IS_HDR_SUPPORTED]) {
-              // Write your own event handling code, for example
-              // using the deviceCapabilities[cast.framework.system.DeviceCapabilities.IS_HDR_SUPPORTED] value
-            }
-            if (deviceCapabilities &&
-                deviceCapabilities[cast.framework.system.DeviceCapabilities.IS_DV_SUPPORTED]) {
-              // Write your own event handling code, for example
-              // using the deviceCapabilities[cast.framework.system.DeviceCapabilities.IS_DV_SUPPORTED] value
-            }
-          });
-        
-  //nn2
+// });
+//nn2
 
 const playbackConfig = new cast.framework.PlaybackConfig();
 playbackConfig.autoResumeDuration = 5;
