@@ -90,9 +90,11 @@ playerManager.setMessageInterceptor(
     loadRequestData => {
     //nn !!    
         debugger;
-        console.log("loadRequestData" + JSON.stringify(loadRequestData));
-        if (loadRequestData.contentType == "image/jpeg") {
+        console.log("loadRequestData " + JSON.stringify(loadRequestData));
+        if (loadRequestData.media.contentType == "image/jpeg") {
             return null;
+        } else {
+            console.log("loadRequestData " + JSON.stringify(loadRequestData.media.contentType));
         }
         return loadRequestData;
     }
