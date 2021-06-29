@@ -102,6 +102,21 @@ playerManager.addEventListener(
 );
 
 //nn2
+context.addEventListener(cast.framework.system.EventType.READY, () => {
+    console.log("!!! ReadyEvent  333 !!!");
+    const deviceCapabilities = context.getDeviceCapabilities();
+    if (deviceCapabilities &&
+        deviceCapabilities[cast.framework.system.DeviceCapabilities.IS_HDR_SUPPORTED]) {
+      // Write your own event handling code, for example
+      // using the deviceCapabilities[cast.framework.system.DeviceCapabilities.IS_HDR_SUPPORTED] value
+    }
+    if (deviceCapabilities &&
+        deviceCapabilities[cast.framework.system.DeviceCapabilities.IS_DV_SUPPORTED]) {
+      // Write your own event handling code, for example
+      // using the deviceCapabilities[cast.framework.system.DeviceCapabilities.IS_DV_SUPPORTED] value
+    }
+  });
+
 context.addEventListener(
     //cast.framework.events.EventType.PLAYER_LOAD_COMPLETE,
     //cast.framework.system.ReadyEvent,
@@ -117,6 +132,7 @@ context.addEventListener(
       console.log("Context", "context event: " + JSON.stringify(event));
     }
   );
+  //cast.framework.system.EventType
 //nn2
 
 const playbackConfig = new cast.framework.PlaybackConfig();
