@@ -97,7 +97,11 @@ playerManager.setMessageInterceptor(
             //Utils.triggerEvent("load_start_picture", parsed);
             Utils.triggerEvent("load_start_picture", {media: loadRequestData.media});
             return null;
-        } else {
+        } else if (loadRequestData.media.contentType == "video/mpeg") {
+            tvApp.stateObj.loadStarted = false;
+            Utils.triggerEvent("load_start_video", {media: loadRequestData.media});
+            return null;
+        } else {    
             console.log("loadRequestData " + JSON.stringify(loadRequestData.media.contentType));
         }
         return loadRequestData;
