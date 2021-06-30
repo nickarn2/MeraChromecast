@@ -85,6 +85,21 @@ const CUSTOM_CHANNEL = "urn:x-cast:verizon-cloud";
 context.addCustomMessageListener(CUSTOM_CHANNEL, function(customEvent) {
       // handle customEvent.
     console.log("addCustomMessageListener: " + customEvent);
+    var parsed = JSON.parse(customEvent.data);
+    var event = parsed.event;
+    var type = parsed.media && parsed.media.type;
+
+    if (parsed.media) tvApp.stateObj = parsed;
+
+    switch(event) {
+        case 'LOAD_START':
+            tvApp.stateObj.loadStarted = false;
+            console.log(Constants.APP_INFO, TAG, type);
+
+            type = type && typeof type == 'string' && type.toLowerCase();
+            Utils.triggerEvent("load_start_"+type, parsed);
+            break;
+    }
 });
 // intercept the LOAD request to be able to read in a contentId and get data
 playerManager.setMessageInterceptor(
