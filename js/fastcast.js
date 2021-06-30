@@ -80,7 +80,8 @@ var FastCast = (function(){
         const LOG_TAG = 'MeraChrome';
 //nn1
 //const CUSTOM_CHANNEL = "urn:x-cast:com.custApp";
-const CUSTOM_CHANNEL = "namespace";
+// const CUSTOM_CHANNEL = "namespace";
+const CUSTOM_CHANNEL = "urn:x-cast:verizon-cloud";
 context.addCustomMessageListener(CUSTOM_CHANNEL, function(customEvent) {
       // handle customEvent.
     console.log("addCustomMessageListener: " + customEvent);
