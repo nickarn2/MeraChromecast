@@ -363,6 +363,8 @@ var tvApp = {
                     tvApp.player.stop();
                     Page.clearStage({showLoader: false});
                     tvApp.videoThumbnail.addClass('displayed');
+
+                    Utils.triggerEvent("resume");//nn added to try
                 }});
             }
         });
