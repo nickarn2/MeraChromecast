@@ -65,7 +65,7 @@ var tvApp = {
             tvApp.stateObj = e.detail;
             if (!tvApp.stateObj.media) return;
 
-            var url = tvApp.stateObj.media.contentUrl, //nn tvApp.stateObj.media.url,
+            var url = tvApp.stateObj.media.url,
                 orientation = tvApp.stateObj.media.exif,
                 hasOrientation = orientation !== null && orientation !== undefined;
 
@@ -308,7 +308,7 @@ var tvApp = {
 
             if (!tvApp.stateObj.media) return;
             debugger;
-            var url = tvApp.stateObj.media.contentUrl;
+            var url = tvApp.stateObj.media.url;
             console.debug(Constants.APP_INFO, "Received command to play url: " + url);
 
             /*
@@ -364,7 +364,7 @@ var tvApp = {
                     Page.clearStage({showLoader: false});
                     tvApp.videoThumbnail.addClass('displayed');
 
-                    Utils.triggerEvent("resume");//nn added to try
+                    //nn Utils.triggerEvent("resume");//nn added to try
                 }});
             }
         });
@@ -398,11 +398,11 @@ var tvApp = {
                  */
                 tvApp.playerContainer.addClass("displayed");
                 /* End fix */
-                tvApp.player.play(media.contentUrl); // start media playback
+                tvApp.player.play(media.url); // start media playback
             } else {
                 var message = {
                     "event": "MEDIA_PLAYBACK",
-                    "message": tvApp.stateObj.media && tvApp.stateObj.media.contentUrl || "",
+                    "message": tvApp.stateObj.media && tvApp.stateObj.media.url || "",
                     "media_event": { "event" : Constants.MediaEvent.MEDIA_RESUME }
                 };
                 Utils.sendMessageToSender(message);
