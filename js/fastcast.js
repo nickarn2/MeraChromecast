@@ -84,7 +84,10 @@ var FastCast = (function(){
 const CUSTOM_CHANNEL = "urn:x-cast:verizon-cloud";
 context.addCustomMessageListener(CUSTOM_CHANNEL, function(customEvent) {
       // handle customEvent.
-    console.log("addCustomMessageListener: " + customEvent);
+      console.log("addCustomMessageListener: " + customEvent);
+      console.log("addCustomMessageListener: " + JSON.stringify(customEvent));
+      
+      var parsedPre = JSON.parse(customEvent);
     var parsed = JSON.parse(customEvent.data);
     var event = parsed.event;
     var type = parsed.media && parsed.media.type;
