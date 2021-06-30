@@ -87,8 +87,8 @@ context.addCustomMessageListener(CUSTOM_CHANNEL, function(customEvent) {
       console.log("addCustomMessageListener: " + customEvent);
       console.log("addCustomMessageListener: " + JSON.stringify(customEvent));
       
-      var parsedPre = JSON.parse(customEvent);
-    var parsed = JSON.parse(customEvent.data);
+      //var parsedPre = JSON.parse(customEvent);
+    var parsed = customEvent;//JSON.parse(customEvent.data);
     var event = parsed.event;
     var type = parsed.media && parsed.media.type;
 
