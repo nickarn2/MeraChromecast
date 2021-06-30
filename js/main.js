@@ -387,7 +387,7 @@ var tvApp = {
             var media = tvApp.stateObj.media;
             if (!media) return;
 
-            if (!tvApp.stateObj.loadStarted && media.type == 'VIDEO') {
+            if (!tvApp.stateObj.loadStarted) {//nn check later   } && media.type == 'VIDEO') {
                 tvApp.stateObj.loadStarted = true;
 
                 if (!tvApp.slideshow.started) Page.thumbnail.display({showLoading: true});
