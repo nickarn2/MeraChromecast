@@ -100,8 +100,8 @@ playerManager.setMessageInterceptor(
         } else if (loadRequestData.media.contentType == "video/mp4") {
             tvApp.stateObj.loadStarted = false;
             Utils.triggerEvent("load_start_video", {media: loadRequestData.media});
-            //return null;
-            return loadRequestData;
+            return null;
+            //nn return loadRequestData;
         } else {    
             console.log("loadRequestData " + JSON.stringify(loadRequestData.media.contentType));
         }
