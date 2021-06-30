@@ -79,7 +79,8 @@ var FastCast = (function(){
         const castDebugLogger = cast.debug.CastDebugLogger.getInstance();
         const LOG_TAG = 'MeraChrome';
 //nn1
-const CUSTOM_CHANNEL = "urn:x-cast:com.custApp";
+//const CUSTOM_CHANNEL = "urn:x-cast:com.custApp";
+const CUSTOM_CHANNEL = "namespace";
 context.addCustomMessageListener(CUSTOM_CHANNEL, function(customEvent) {
       // handle customEvent.
     console.log("addCustomMessageListener: " + customEvent);
