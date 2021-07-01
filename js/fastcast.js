@@ -102,6 +102,18 @@ context.addCustomMessageListener(CUSTOM_CHANNEL, function(customEvent) {
             type = type && typeof type == 'string' && type.toLowerCase();
             Utils.triggerEvent("load_start_"+type, parsed);
             break;
+        case 'RESUME':
+        case 'PAUSE':
+        case 'START_SLIDESHOW':
+        case 'ADD_SLIDESHOW':
+        case 'STOP_SLIDESHOW':
+        case 'STOP_MEDIA':
+        case 'NEXT_SLIDE':
+        case 'PREVIOUS_SLIDE':
+            event = event.toLowerCase();
+            Utils.triggerEvent(event, parsed);
+            break;
+
     }
 });
 // intercept the LOAD request to be able to read in a contentId and get data
