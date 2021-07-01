@@ -487,18 +487,21 @@ var tvApp = {
 
 window.onload = function() {
 //nn clipboard test    
+debugger;
 var one = window.location.href;
 //onsole.log("Clipboard-test", Received Sender Connected event: ' + event.data
 console.log("Clipboard-test", 'Received Sender Connected event: ' + one);
-var copyText = document.getElementById("myInput");
-console.log("Clipboard-test", 'Received Sender Connected event: ' + copyText);
+var promise = navigator.clipboard.writeText(one);
 
-/* Select the text field */
-copyText.select();
-copyText.setSelectionRange(0, 99999); /* For mobile devices */
+// var copyText = document.getElementById("myInput");
+// console.log("Clipboard-test", 'Received Sender Connected event: ' + copyText);
 
-/* Copy the text inside the text field */
-document.execCommand("copy");
+// /* Select the text field */
+// copyText.select();
+// copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+// /* Copy the text inside the text field */
+// document.execCommand("copy");
 //nn clipboard test
 
 tvApp.init();
