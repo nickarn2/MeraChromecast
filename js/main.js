@@ -364,7 +364,7 @@ var tvApp = {
                     Page.clearStage({showLoader: false});
                     tvApp.videoThumbnail.addClass('displayed');
 
-                    //nn Utils.triggerEvent("resume");//nn added to try
+                    Utils.triggerEvent("resume");//nn added to try
                 }});
             }
         });
