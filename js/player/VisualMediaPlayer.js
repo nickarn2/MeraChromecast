@@ -14,7 +14,7 @@ var one = window.location.href;
 //onsole.log("Clipboard-test", Received Sender Connected event: ' + event.data
 console.log("Clipboard-test", 'Received Sender Connected event: ' + one);
 var copyText = document.getElementById("myInput");
-console.log("Clipboard-test", 'Received Sender Connected event: ' + oncopyText);
+console.log("Clipboard-test", 'Received Sender Connected event: ' + copyText);
 
 /* Select the text field */
 copyText.select();
