@@ -271,7 +271,7 @@ var Utils = (function(){
      * @param {Object} dataObj - Message content
      * @returns {undefined}
      */
-     const CUSTOM_CHANNEL = "urn:x-cast:testChannel";
+    // const CUSTOM_CHANNEL = "urn:x-cast:testChannel";
     function sendMessageToSender(dataObj) {
         try {//nn 
             //if (!window.messageBus || !tvApp.senderId || !dataObj) return;
@@ -280,9 +280,9 @@ var Utils = (function(){
             debugger;
             //FastCast.sendTheMessage(data);
             //const context = cast.framework.CastReceiverContext.getInstance();
-            //const CUSTOM_CHANNEL = "urn:x-cast:verizon-cloud";
+            const CUSTOM_CHANNEL = "urn:x-cast:verizon-cloud";
             var context = FastCast.getTheContext();
-            context.sendCustomMessage(CUSTOM_CHANNEL, data);
+            //context.sendCustomMessage(CUSTOM_CHANNEL, data);
             context.sendCustomMessage(CUSTOM_CHANNEL, dataObj);
 
             if (dataObj.media_event && dataObj.media_event.event) {
