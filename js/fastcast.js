@@ -187,6 +187,7 @@ playerManager.addEventListener(
 //nn3
 const options = cast.framework.CastReceiverOptions();
 options.customNamespaces = {
+    "urn:x-cast:verizon-cloud" : cast.framework.system.MessageType.STRING,
     "urn:x-cast:testChannel": cast.framework.system.MessageType.STRING
 };
 context.start(options);
