@@ -272,10 +272,14 @@ var Utils = (function(){
      * @returns {undefined}
      */
     function sendMessageToSender(dataObj) {
-        try {
-            if (!window.messageBus || !tvApp.senderId || !dataObj) return;
+        try {//nn 
+            //if (!window.messageBus || !tvApp.senderId || !dataObj) return;
             var data = JSON.stringify(dataObj);
-            window.messageBus.send(tvApp.senderId, data);
+            //window.messageBus.send(tvApp.senderId, data);
+            debugger;
+            const context = cast.framework.CastReceiverContext.getInstance();
+            const CUSTOM_CHANNEL = "urn:x-cast:verizon-cloud";
+            context.sendCustomMessage(CUSTOM_CHANNEL, data);
 
             if (dataObj.media_event && dataObj.media_event.event) {
                 triggerEvent("onMediaEvent", {event: dataObj.media_event.event});
