@@ -58,9 +58,6 @@ var FastCast = (function(){
         window.castReceiverContext.onSenderDisconnected = onSenderDisconnected;
     }
 
-    function getContext() {
-        return context;
-    }
     /**
      * Initializes FastCast. Expects 2 arguments: namespace
      * and a callback function. Namespace name is required.
@@ -73,6 +70,9 @@ var FastCast = (function(){
      * @returns {undefined}
      */
      const context = cast.framework.CastReceiverContext.getInstance();
+     function getTheContext() {
+        return context;
+    }
     function init(namespace, callback) {
         //const context = cast.framework.CastReceiverContext.getInstance();
         console.log(Constants.APP_INFO, TAG, 'Starting Receiver Manager');
