@@ -179,13 +179,14 @@ playerManager.addEventListener(
 // });
 //nn2
 //nn3
-// const playbackConfig = new cast.framework.PlaybackConfig();
-// playbackConfig.autoResumeDuration = 5;
-// options.customNamespaces = { 'urn:x-cast:testChannel': 'STRING' }
-// context.start({ playbackConfig: playbackConfig });        
-// context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
+const playbackConfig = new cast.framework.PlaybackConfig();
+playbackConfig.autoResumeDuration = 5;
+options.customNamespaces = { 'urn:x-cast:testChannel': 'STRING' }
+context.start({ playbackConfig: playbackConfig });        
+context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
 //nn3
-const options = cast.framework.CastReceiverOptions();
+//nn4
+//const options = cast.framework.CastReceiverOptions();
 // options.customNamespaces = {
 //     "urn:x-cast:verizon-cloud" : cast.framework.system.MessageType.STRING,
 //     "urn:x-cast:testChannel": cast.framework.system.MessageType.STRING
@@ -195,11 +196,11 @@ const options = cast.framework.CastReceiverOptions();
 // };
 // options.customNamespaces = Object.assign({});
 // options.customNamespaces[CUSTOM_CHANNEL] = cast.framework.system.MessageType.JSON;
-options.customNamespaces = {
-    CUSTOM_CHANNEL: cast.framework.system.MessageType.JSON
-};
-context.start(options);
-
+// options.customNamespaces = {
+//     CUSTOM_CHANNEL: cast.framework.system.MessageType.JSON
+// };
+// context.start(options);
+//nn4
 
 
 
