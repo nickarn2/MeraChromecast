@@ -271,7 +271,7 @@ var Utils = (function(){
      * @param {Object} dataObj - Message content
      * @returns {undefined}
      */
-     const CUSTOM_CHANNEL = "urn:x-cast:com-custApp";
+     const CUSTOM_CHANNEL = "urn:x-cast:testChannel";
     function sendMessageToSender(dataObj) {
         try {//nn 
             //if (!window.messageBus || !tvApp.senderId || !dataObj) return;

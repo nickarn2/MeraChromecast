@@ -178,11 +178,21 @@ playerManager.addEventListener(
 //     }
 // });
 //nn2
+//nn3
+// const playbackConfig = new cast.framework.PlaybackConfig();
+// playbackConfig.autoResumeDuration = 5;
+// options.customNamespaces = { 'urn:x-cast:testChannel': 'STRING' }
+// context.start({ playbackConfig: playbackConfig });        
+// context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
+//nn3
+const options = cast.framework.CastReceiverOptions();
+options.customNamespaces = {
+    "urn:x-cast:testChannel": cast.framework.system.MessageType.STRING
+};
+context.start(options);
 
-const playbackConfig = new cast.framework.PlaybackConfig();
-playbackConfig.autoResumeDuration = 5;
-context.start({ playbackConfig: playbackConfig });        
-context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
+
+
 
         window.castReceiverContext = context;
 
