@@ -58,6 +58,9 @@ var FastCast = (function(){
         window.castReceiverContext.onSenderDisconnected = onSenderDisconnected;
     }
 
+    function getContext() {
+        return context;
+    }
     /**
      * Initializes FastCast. Expects 2 arguments: namespace
      * and a callback function. Namespace name is required.

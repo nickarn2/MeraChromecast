@@ -279,7 +279,8 @@ var Utils = (function(){
             debugger;
             //const context = cast.framework.CastReceiverContext.getInstance();
             const CUSTOM_CHANNEL = "urn:x-cast:verizon-cloud";
-            FastCast.context.sendCustomMessage(CUSTOM_CHANNEL, data);
+            var context = FastCast.getContext();
+            context.sendCustomMessage(CUSTOM_CHANNEL, data);
 
             if (dataObj.media_event && dataObj.media_event.event) {
                 triggerEvent("onMediaEvent", {event: dataObj.media_event.event});
