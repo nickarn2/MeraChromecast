@@ -201,8 +201,21 @@ context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
 // };
 // context.start(options);
 //nn4
+const options = new cast.framework.CastReceiverOptions();
+options.customNamespaces = Object.assign({});
+  options.customNamespaces[CUSTOM_CHANNEL] = cast.framework.system.MessageType.JSON;
 
-
+  //receiving sender message
+  //ctx.addCustomMessageListener(CUSTOM_CHANNEL,  customEvent => document.getElementById("main").innerHTML = customEvent.data.msg);
+  
+  const objToSender = 
+  {
+    type: 'status',
+    message: 'Playing'
+  };
+  //message to sender app
+  context.sendCustomMessage(CUSTOM_CHANNEL, objToSender);
+  context.start(options);
 
         window.castReceiverContext = context;
 
