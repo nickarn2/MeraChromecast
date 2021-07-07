@@ -74,6 +74,7 @@ var FastCast = (function(){
      * @returns {undefined}
      */
      const context = cast.framework.CastReceiverContext.getInstance();
+     const CUSTOM_CHANNEL = "urn:x-cast:verizon-cloud";
      function getTheContext() {
         return context;
     }
@@ -89,7 +90,7 @@ var FastCast = (function(){
 //nn1
 //const CUSTOM_CHANNEL = "urn:x-cast:com.custApp";
 // const CUSTOM_CHANNEL = "namespace";
-const CUSTOM_CHANNEL = "urn:x-cast:verizon-cloud";
+//const CUSTOM_CHANNEL = "urn:x-cast:verizon-cloud";
 context.addCustomMessageListener(CUSTOM_CHANNEL, function(customEvent) {
       // handle customEvent.
       console.log("addCustomMessageListener: " + customEvent);
