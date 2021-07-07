@@ -60,7 +60,7 @@ var FastCast = (function(){
 
     function sendTheMessage(data) {
         debugger;
-        context.sendCustomMessage(CUSTOM_CHANNEL, data);
+        context.sendCustomMessage("urn:x-cast:sncr-cloud", data);
     }
     /**
      * Initializes FastCast. Expects 2 arguments: namespace
