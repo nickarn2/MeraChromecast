@@ -89,6 +89,10 @@ var FastCast = (function(){
         const castDebugLogger = cast.debug.CastDebugLogger.getInstance();
         const LOG_TAG = 'MeraChrome';
 //nn1
+const options = new cast.framework.CastReceiverOptions();
+options.customNamespaces = Object.assign({});
+  options.customNamespaces[CUSTOM_CHANNEL] = cast.framework.system.MessageType.JSON;
+
 //const CUSTOM_CHANNEL = "urn:x-cast:com.custApp";
 // const CUSTOM_CHANNEL = "namespace";
 //const CUSTOM_CHANNEL = "urn:x-cast:verizon-cloud";
@@ -179,11 +183,11 @@ playerManager.addEventListener(
 // });
 //nn2
 //nn3
-const playbackConfig = new cast.framework.PlaybackConfig();
-playbackConfig.autoResumeDuration = 5;
-options.customNamespaces = { 'urn:x-cast:testChannel': 'STRING' }
-context.start({ playbackConfig: playbackConfig });        
-context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
+// const playbackConfig = new cast.framework.PlaybackConfig();
+// playbackConfig.autoResumeDuration = 5;
+// options.customNamespaces = { 'urn:x-cast:testChannel': 'STRING' }
+// context.start({ playbackConfig: playbackConfig });        
+// context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
 //nn3
 //nn4
 //const options = cast.framework.CastReceiverOptions();
@@ -201,9 +205,9 @@ context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
 // };
 // context.start(options);
 //nn4
-const options = new cast.framework.CastReceiverOptions();
-options.customNamespaces = Object.assign({});
-  options.customNamespaces[CUSTOM_CHANNEL] = cast.framework.system.MessageType.JSON;
+// const options = new cast.framework.CastReceiverOptions();
+// options.customNamespaces = Object.assign({});
+//   options.customNamespaces[CUSTOM_CHANNEL] = cast.framework.system.MessageType.JSON;
 
   //receiving sender message
   //ctx.addCustomMessageListener(CUSTOM_CHANNEL,  customEvent => document.getElementById("main").innerHTML = customEvent.data.msg);
