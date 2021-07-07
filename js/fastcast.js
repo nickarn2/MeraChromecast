@@ -69,8 +69,9 @@ var FastCast = (function(){
      * @param {function} [callback] - function to be called after initialization
      * @returns {undefined}
      */
+     const context = cast.framework.CastReceiverContext.getInstance();
     function init(namespace, callback) {
-        const context = cast.framework.CastReceiverContext.getInstance();
+        //const context = cast.framework.CastReceiverContext.getInstance();
         console.log(Constants.APP_INFO, TAG, 'Starting Receiver Manager');
         const playerManager = context.getPlayerManager();
         const options = new cast.framework.CastReceiverOptions();

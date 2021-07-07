@@ -277,9 +277,9 @@ var Utils = (function(){
             var data = JSON.stringify(dataObj);
             //window.messageBus.send(tvApp.senderId, data);
             debugger;
-            const context = cast.framework.CastReceiverContext.getInstance();
+            //const context = cast.framework.CastReceiverContext.getInstance();
             const CUSTOM_CHANNEL = "urn:x-cast:verizon-cloud";
-            context.sendCustomMessage(CUSTOM_CHANNEL, data);
+            FastCast.context.sendCustomMessage(CUSTOM_CHANNEL, data);
 
             if (dataObj.media_event && dataObj.media_event.event) {
                 triggerEvent("onMediaEvent", {event: dataObj.media_event.event});
