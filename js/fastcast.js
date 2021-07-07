@@ -196,7 +196,7 @@ const options = cast.framework.CastReceiverOptions();
 // options.customNamespaces = Object.assign({});
 // options.customNamespaces[CUSTOM_CHANNEL] = cast.framework.system.MessageType.JSON;
 options.customNamespaces = {
-    [CUSTOM_CHANNEL]: cast.framework.system.MessageType.JSON
+    CUSTOM_CHANNEL: cast.framework.system.MessageType.JSON
 };
 context.start(options);
 
