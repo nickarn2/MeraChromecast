@@ -57,6 +57,10 @@ var FastCast = (function(){
         // handler for 'senderdisconnected' event
         window.castReceiverContext.onSenderDisconnected = onSenderDisconnected;
     }
+    function sendTheMessage(data) {
+        debugger;
+        context.sendCustomMessage(CUSTOM_CHANNEL, data);
+    }
 
     /**
      * Initializes FastCast. Expects 2 arguments: namespace
