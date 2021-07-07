@@ -75,6 +75,7 @@ var FastCast = (function(){
      */
      const context = cast.framework.CastReceiverContext.getInstance();
      const CUSTOM_CHANNEL = "urn:x-cast:verizon-cloud";
+     const CUSTOM_CHANNEL2 = "urn:x-cast:com-custApp";
      function getTheContext() {
         return context;
     }
@@ -180,8 +181,8 @@ playerManager.addEventListener(
 
 const playbackConfig = new cast.framework.PlaybackConfig();
 playbackConfig.autoResumeDuration = 5;
-context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
 context.start({ playbackConfig: playbackConfig });        
+context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
 
         window.castReceiverContext = context;
 
