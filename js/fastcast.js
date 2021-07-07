@@ -186,10 +186,14 @@ playerManager.addEventListener(
 // context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
 //nn3
 const options = cast.framework.CastReceiverOptions();
-options.customNamespaces = {
-    "urn:x-cast:verizon-cloud" : cast.framework.system.MessageType.STRING,
-    "urn:x-cast:testChannel": cast.framework.system.MessageType.STRING
-};
+// options.customNamespaces = {
+//     "urn:x-cast:verizon-cloud" : cast.framework.system.MessageType.STRING,
+//     "urn:x-cast:testChannel": cast.framework.system.MessageType.STRING
+// };
+// options.customNamespaces = {
+//     "urn:x-cast:verizon-cloud" : cast.framework.system.MessageType.STRING
+// };
+options.customNamespaces[CUSTOM_CHANNEL] = cast.framework.system.MessageType.JSON;
 context.start(options);
 
 
