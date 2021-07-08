@@ -84,12 +84,12 @@ var FastCast = (function(){
             console.error(Constants.APP_INFO, TAG, e);
             debugger;
         }
-        // try {//nn 
-        //     context.sendCustomMessage('urn:x-cast:verizon-cloud', "try text");
-        // } catch(e) {
-        //     console.error(Constants.APP_INFO, TAG, e);
-        //     debugger;
-        // }
+        try {//nn 
+            context.sendCustomMessage('urn:x-cast:verizon-cloud', "try text");
+        } catch(e) {
+            console.error(Constants.APP_INFO, TAG, e);
+            debugger;
+        }
         // const objToSender = 
         // {
         //   type: 'status',
