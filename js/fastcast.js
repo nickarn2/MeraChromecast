@@ -78,44 +78,44 @@ var FastCast = (function(){
      const CUSTOM_CHANNEL = "urn:x-cast:com.verizon.smartview";
      function getTheContext() {
          debugger;
-        // try {//nn 
-        //     context.sendCustomMessage(CUSTOM_CHANNEL, "try text");
-        // } catch(e) {
-        //     console.error(Constants.APP_INFO, TAG, e);
-        //     debugger;
-        // }
+        try {//nn 
+            context.sendCustomMessage(CUSTOM_CHANNEL, "try text");
+        } catch(e) {
+            console.error(Constants.APP_INFO, TAG, e);
+            debugger;
+        }
         // try {//nn 
         //     context.sendCustomMessage('urn:x-cast:verizon-cloud', "try text");
         // } catch(e) {
         //     console.error(Constants.APP_INFO, TAG, e);
         //     debugger;
         // }
-        const objToSender = 
-        {
-          type: 'status',
-          message: 'Playing'
-        };
-        try {
-            context.sendCustomMessage('urn:x-cast:verizon-cloud', objToSender);
-        } catch(e) {
-            console.error(Constants.APP_INFO, TAG, e);
-            debugger;
-        }
-        try {
-            context.sendCustomMessage(CUSTOM_CHANNEL, objToSender);
-        } catch(e) {
-            console.error(Constants.APP_INFO, TAG, e);
-            debugger;
-        }
-        var message_1 = {
-            "event": "ERROR"
-        };
-        try {
-            context.sendCustomMessage("urn:x-cast:verizon-cloud", message_1);
-        } catch(e) {
-            console.error(Constants.APP_INFO, TAG, e);
-            debugger;
-        }
+        // const objToSender = 
+        // {
+        //   type: 'status',
+        //   message: 'Playing'
+        // };
+        // try {
+        //     context.sendCustomMessage('urn:x-cast:verizon-cloud', objToSender);
+        // } catch(e) {
+        //     console.error(Constants.APP_INFO, TAG, e);
+        //     debugger;
+        // }
+        // try {
+        //     context.sendCustomMessage(CUSTOM_CHANNEL, objToSender);
+        // } catch(e) {
+        //     console.error(Constants.APP_INFO, TAG, e);
+        //     debugger;
+        // }
+        // var message_1 = {
+        //     "event": "ERROR"
+        // };
+        // try {
+        //     context.sendCustomMessage("urn:x-cast:verizon-cloud", message_1);
+        // } catch(e) {
+        //     console.error(Constants.APP_INFO, TAG, e);
+        //     debugger;
+        // }
         // try {
         //     context.sendCustomMessage("urn:x-cast:com.verizon.smartview", objToSender);
         // } catch(e) {
