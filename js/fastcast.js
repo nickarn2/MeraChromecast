@@ -226,17 +226,14 @@ playerManager.addEventListener(
 //   //context.sendCustomMessage(CUSTOM_CHANNEL, objToSender);
 //nn5
 //nn6
-// const playbackConfig = new cast.framework.PlaybackConfig();
-// playbackConfig.autoResumeDuration = 5;
-// const options = cast.framework.CastReceiverOptions();
-// options.customNamespaces = { 'urn:x-cast:testChannel': 'STRING' }
-// context.start({ playbackConfig: playbackConfig });        
-// context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
+const playbackConfig = new cast.framework.PlaybackConfig();
+playbackConfig.autoResumeDuration = 5;
+const namespaces = { 'urn:x-cast:testChannel': 'STRING' };
+context.start({ playbackConfig: playbackConfig,
+    customNamespaces:  namespaces});        
+context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
 
 
-const options = new cast.framework.CastReceiverOptions();
-options.disableIdleTimeout = true;
-context.start(options);
 
 //nn6
 
