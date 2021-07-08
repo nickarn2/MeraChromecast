@@ -228,7 +228,8 @@ playerManager.addEventListener(
 //nn6
 const playbackConfig = new cast.framework.PlaybackConfig();
 playbackConfig.autoResumeDuration = 5;
-const namespaces = { 'urn:x-cast:testChannel': 'STRING' };
+//const namespaces = { 'urn:x-cast:testChannel': 'STRING' };
+const namespaces = { CUSTOM_CHANNEL: 'STRING' };
 context.start({ playbackConfig: playbackConfig,
     customNamespaces:  namespaces});        
 context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
