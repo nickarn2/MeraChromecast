@@ -280,7 +280,7 @@ var Utils = (function(){
             debugger;
             //FastCast.sendTheMessage(data);
             //const context = cast.framework.CastReceiverContext.getInstance();
-            const CUSTOM_CHANNEL = "urn:x-cast:verizon-cloud";
+            const CUSTOM_CHANNEL = "urn:x-cast:com.verizon.smartview";
             var context = FastCast.getTheContext();
             //context.sendCustomMessage(CUSTOM_CHANNEL, data);
             context.sendCustomMessage(CUSTOM_CHANNEL, dataObj);
