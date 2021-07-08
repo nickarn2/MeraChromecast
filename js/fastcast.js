@@ -74,8 +74,8 @@ var FastCast = (function(){
      * @returns {undefined}
      */
      const context = cast.framework.CastReceiverContext.getInstance();
-     const CUSTOM_CHANNEL = "urn:x-cast:verizon-cloud";
-     const CUSTOM_CHANNEL2 = "urn:x-cast:com-custApp";
+//nnn     const CUSTOM_CHANNEL = "urn:x-cast:verizon-cloud";
+     const CUSTOM_CHANNEL = "urn:x-cast:com.verizon.smartview";
      function getTheContext() {
         return context;
     }
