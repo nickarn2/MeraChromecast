@@ -74,15 +74,21 @@ var FastCast = (function(){
      * @returns {undefined}
      */
      const context = cast.framework.CastReceiverContext.getInstance();
-//nnn     const CUSTOM_CHANNEL = "urn:x-cast:verizon-cloud";
+     const CUSTOM_CHANNEL_TWO = "urn:x-cast:verizon-cloud";
      const CUSTOM_CHANNEL = "urn:x-cast:com.verizon.smartview";
      function getTheContext() {
+         debugger;
         try {//nn 
             context.sendCustomMessage(CUSTOM_CHANNEL, "try text");
         } catch(e) {
             console.error(Constants.APP_INFO, TAG, e);
         }
-        debugger;
+        try {//nn 
+            context.sendCustomMessage('urn:x-cast:verizon-cloud', "try text");
+        } catch(e) {
+            console.error(Constants.APP_INFO, TAG, e);
+        }
+        
 
         return context;
     }
@@ -229,7 +235,8 @@ playerManager.addEventListener(
 const playbackConfig = new cast.framework.PlaybackConfig();
 playbackConfig.autoResumeDuration = 5;
 //const namespaces = { 'urn:x-cast:testChannel': 'STRING' };
-const namespaces = {'urn:x-cast:com.verizon.smartview' : 'JSON' };
+const namespaces = {'urn:x-cast:com.verizon.smartview' : 'JSON',
+'urn:x-cast:verizon-cloud' : 'JSON' };
 context.start({ playbackConfig: playbackConfig,
     customNamespaces:  namespaces});        
 context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
