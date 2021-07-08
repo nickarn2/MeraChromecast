@@ -229,7 +229,7 @@ playerManager.addEventListener(
 const playbackConfig = new cast.framework.PlaybackConfig();
 playbackConfig.autoResumeDuration = 5;
 //const namespaces = { 'urn:x-cast:testChannel': 'STRING' };
-const namespaces = { CUSTOM_CHANNEL: 'STRING' };
+const namespaces = {'urn:x-cast:com.verizon.smartview' : 'STRING' };
 context.start({ playbackConfig: playbackConfig,
     customNamespaces:  namespaces});        
 context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
