@@ -97,9 +97,6 @@ var FastCast = (function(){
         const LOG_TAG = 'MeraChrome';
 //nn1
 
-//const CUSTOM_CHANNEL = "urn:x-cast:com.custApp";
-// const CUSTOM_CHANNEL = "namespace";
-//const CUSTOM_CHANNEL = "urn:x-cast:verizon-cloud";
 context.addCustomMessageListener(CUSTOM_CHANNEL, function(customEvent) {
       // handle customEvent.
       console.log("addCustomMessageListener: " + customEvent);
@@ -187,10 +184,10 @@ playerManager.addEventListener(
 // });
 //nn2
 //nn3
-const playbackConfig = new cast.framework.PlaybackConfig();
-playbackConfig.autoResumeDuration = 5;
-options.customNamespaces = { 'urn:x-cast:testChannel': 'STRING' }
-context.start({ playbackConfig: playbackConfig });        
+// const playbackConfig = new cast.framework.PlaybackConfig();
+// playbackConfig.autoResumeDuration = 5;
+// options.customNamespaces = { 'urn:x-cast:testChannel': 'STRING' }
+// context.start({ playbackConfig: playbackConfig });        
 //context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
 //nn3
 //nn4
@@ -209,22 +206,24 @@ context.start({ playbackConfig: playbackConfig });
 // };
 // context.start(options);
 //nn4
-// const options = new cast.framework.CastReceiverOptions();
-// options.customNamespaces = Object.assign({});
-//   options.customNamespaces[CUSTOM_CHANNEL] = cast.framework.system.MessageType.JSON;
+//nn5
+const options = new cast.framework.CastReceiverOptions();
+options.customNamespaces = Object.assign({});
+options.customNamespaces[CUSTOM_CHANNEL] = cast.framework.system.MessageType.JSON;
 
   //receiving sender message
-  //ctx.addCustomMessageListener(CUSTOM_CHANNEL,  customEvent => document.getElementById("main").innerHTML = customEvent.data.msg);
+  //context.addCustomMessageListener(CUSTOM_CHANNEL,  customEvent => document.getElementById("main").innerHTML = customEvent.data.msg);
   
-//   const objToSender = 
-//   {
-//     type: 'status',
-//     message: 'Playing'
-//   };
-//   //message to sender app
-//   context.sendCustomMessage(CUSTOM_CHANNEL, objToSender);
-//   context.start(options);
-
+  const objToSender = 
+  {
+    type: 'status',
+    message: 'Playing'
+  };
+  //message to sender app
+  context.sendCustomMessage(CUSTOM_CHANNEL, objToSender);
+  context.start(options);
+  context.sendCustomMessage(CUSTOM_CHANNEL, objToSender);
+//nn5
         window.castReceiverContext = context;
 
 //nn commented
