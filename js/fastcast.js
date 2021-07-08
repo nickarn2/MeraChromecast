@@ -77,6 +77,13 @@ var FastCast = (function(){
 //nnn     const CUSTOM_CHANNEL = "urn:x-cast:verizon-cloud";
      const CUSTOM_CHANNEL = "urn:x-cast:com.verizon.smartview";
      function getTheContext() {
+        try {//nn 
+            context.sendCustomMessage(CUSTOM_CHANNEL, "try text");
+        } catch(e) {
+            console.error(Constants.APP_INFO, TAG, e);
+        }
+        debugger;
+
         return context;
     }
     function init(namespace, callback) {
@@ -184,7 +191,7 @@ const playbackConfig = new cast.framework.PlaybackConfig();
 playbackConfig.autoResumeDuration = 5;
 options.customNamespaces = { 'urn:x-cast:testChannel': 'STRING' }
 context.start({ playbackConfig: playbackConfig });        
-context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
+//context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
 //nn3
 //nn4
 //const options = cast.framework.CastReceiverOptions();
