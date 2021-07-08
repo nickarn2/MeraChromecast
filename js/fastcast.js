@@ -184,11 +184,11 @@ playerManager.addEventListener(
 // });
 //nn2
 //nn3
-// const playbackConfig = new cast.framework.PlaybackConfig();
-// playbackConfig.autoResumeDuration = 5;
-// options.customNamespaces = { 'urn:x-cast:testChannel': 'STRING' }
-// context.start({ playbackConfig: playbackConfig });        
-//context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
+const playbackConfig = new cast.framework.PlaybackConfig();
+playbackConfig.autoResumeDuration = 5;
+options.customNamespaces = { 'urn:x-cast:testChannel': 'STRING' }
+context.start({ playbackConfig: playbackConfig });        
+context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
 //nn3
 //nn4
 //const options = cast.framework.CastReceiverOptions();
@@ -207,22 +207,22 @@ playerManager.addEventListener(
 // context.start(options);
 //nn4
 //nn5
-const options = new cast.framework.CastReceiverOptions();
-options.customNamespaces = Object.assign({});
-options.customNamespaces[CUSTOM_CHANNEL] = cast.framework.system.MessageType.JSON;
+// const options = new cast.framework.CastReceiverOptions();
+// options.customNamespaces = Object.assign({});
+// options.customNamespaces[CUSTOM_CHANNEL] = cast.framework.system.MessageType.JSON;
 
-  //receiving sender message
-  //context.addCustomMessageListener(CUSTOM_CHANNEL,  customEvent => document.getElementById("main").innerHTML = customEvent.data.msg);
+//   //receiving sender message
+//   //context.addCustomMessageListener(CUSTOM_CHANNEL,  customEvent => document.getElementById("main").innerHTML = customEvent.data.msg);
   
-//   const objToSender = 
-//   {
-//     type: 'status',
-//     message: 'Playing'
-//   };
-  //message to sender app
-  //context.sendCustomMessage(CUSTOM_CHANNEL, objToSender);
-  context.start(options);
-  //context.sendCustomMessage(CUSTOM_CHANNEL, objToSender);
+// //   const objToSender = 
+// //   {
+// //     type: 'status',
+// //     message: 'Playing'
+// //   };
+//   //message to sender app
+//   //context.sendCustomMessage(CUSTOM_CHANNEL, objToSender);
+//   context.start(options);
+//   //context.sendCustomMessage(CUSTOM_CHANNEL, objToSender);
 //nn5
         window.castReceiverContext = context;
 
