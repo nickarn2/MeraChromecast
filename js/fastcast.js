@@ -214,15 +214,15 @@ options.customNamespaces[CUSTOM_CHANNEL] = cast.framework.system.MessageType.JSO
   //receiving sender message
   //context.addCustomMessageListener(CUSTOM_CHANNEL,  customEvent => document.getElementById("main").innerHTML = customEvent.data.msg);
   
-  const objToSender = 
-  {
-    type: 'status',
-    message: 'Playing'
-  };
+//   const objToSender = 
+//   {
+//     type: 'status',
+//     message: 'Playing'
+//   };
   //message to sender app
-  context.sendCustomMessage(CUSTOM_CHANNEL, objToSender);
+  //context.sendCustomMessage(CUSTOM_CHANNEL, objToSender);
   context.start(options);
-  context.sendCustomMessage(CUSTOM_CHANNEL, objToSender);
+  //context.sendCustomMessage(CUSTOM_CHANNEL, objToSender);
 //nn5
         window.castReceiverContext = context;
 
