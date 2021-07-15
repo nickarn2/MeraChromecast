@@ -123,36 +123,36 @@ context.addCustomMessageListener(CUSTOM_CHANNEL, function(customEvent) {
     }
 });
 // intercept the LOAD request to be able to read in a contentId and get data
-playerManager.setMessageInterceptor(
-    cast.framework.messages.MessageType.LOAD,
-    loadRequestData => {
-    //nn !!    
-        debugger;
-        console.log("loadRequestData " + JSON.stringify(loadRequestData));
-        if (loadRequestData.media.contentType == "image/jpeg") {
-            tvApp.stateObj.loadStarted = false;
-            //var parsed = {"event":"LOAD_START","media":{"duration":0,"type":"PICTURE","url":"https://lkg07-mediamanager.verizonwireless.com/media/thumbnail/APRjM1LpYsyoemakufXPkNUannOwpUW9GTi_3-8oXLdOiHKiu49bWehVy_UF9sYiSxbnAh-wwFoP7AwfoMhnPmQ%7E?tw=1920&th=1080&ignorePivot=true&NWB=ALvoqLxXjadIC8-3OADJi9XBVfinSCdEnz-7IjVDjWTjk2yM1CExE193LYR0Dr4l0CAsdPOA_X_09pEW6DQW39iIWTrJye_3WZMXOhNkfdd3qCZR8ba9l_sQkQYFLf_BpxbfPdmTWa6lOj3uYbfN0rblML3xMSAjZ8X5AVyDmayBkwLWystoJ4_uuMRKbxvB7YlykdhSL4vkxgf_xPHI0fk~","thumbnail":"https://lkg07-mediamanager.verizonwireless.com/media/thumbnail/APRjM1LpYsyoemakufXPkNUannOwpUW9GTi_3-8oXLdOiHKiu49bWehVy_UF9sYiSxbnAh-wwFoP7AwfoMhnPmQ%7E?tw=200&th=113&ignorePivot=true&NWB=ALvoqLxXjadIC8-3OADJi9XBVfinSCdEnz-7IjVDjWTjk2yM1CExE193LYR0Dr4l0CAsdPOA_X_09pEW6DQW39iIWTrJye_3WZMXOhNkfdd3qCZR8ba9l_sQkQYFLf_BpxbfPdmTWa6lOj3uYbfN0rblML3xMSAjZ8X5AVyDmayBkwLWystoJ4_uuMRKbxvB7YlykdhSL4vkxgf_xPHI0fk~"},"loadStarted":false}
-            //Utils.triggerEvent("load_start_picture", parsed);
-            Utils.triggerEvent("load_start_picture", {media: loadRequestData.media});
-            return null;
-        } else if (loadRequestData.media.contentType == "video/mp4") {
-            tvApp.stateObj.loadStarted = false;
-            Utils.triggerEvent("load_start_video", {media: loadRequestData.media});
-            return null;
-            //nn return loadRequestData;
-        } else {    
-            console.log("loadRequestData " + JSON.stringify(loadRequestData.media.contentType));
-        }
-        return loadRequestData;
-    }
-);
-playerManager.addEventListener(
-  cast.framework.events.category.CORE,
-  event => {
-    console.log("playerManager = " + event.type);
-    console.log("CastContext", "Core event: " + JSON.stringify(event));
-  }
-);
+// playerManager.setMessageInterceptor(
+//     cast.framework.messages.MessageType.LOAD,
+//     loadRequestData => {
+//     //nn !!    
+//         debugger;
+//         console.log("loadRequestData " + JSON.stringify(loadRequestData));
+//         if (loadRequestData.media.contentType == "image/jpeg") {
+//             tvApp.stateObj.loadStarted = false;
+//             //var parsed = {"event":"LOAD_START","media":{"duration":0,"type":"PICTURE","url":"https://lkg07-mediamanager.verizonwireless.com/media/thumbnail/APRjM1LpYsyoemakufXPkNUannOwpUW9GTi_3-8oXLdOiHKiu49bWehVy_UF9sYiSxbnAh-wwFoP7AwfoMhnPmQ%7E?tw=1920&th=1080&ignorePivot=true&NWB=ALvoqLxXjadIC8-3OADJi9XBVfinSCdEnz-7IjVDjWTjk2yM1CExE193LYR0Dr4l0CAsdPOA_X_09pEW6DQW39iIWTrJye_3WZMXOhNkfdd3qCZR8ba9l_sQkQYFLf_BpxbfPdmTWa6lOj3uYbfN0rblML3xMSAjZ8X5AVyDmayBkwLWystoJ4_uuMRKbxvB7YlykdhSL4vkxgf_xPHI0fk~","thumbnail":"https://lkg07-mediamanager.verizonwireless.com/media/thumbnail/APRjM1LpYsyoemakufXPkNUannOwpUW9GTi_3-8oXLdOiHKiu49bWehVy_UF9sYiSxbnAh-wwFoP7AwfoMhnPmQ%7E?tw=200&th=113&ignorePivot=true&NWB=ALvoqLxXjadIC8-3OADJi9XBVfinSCdEnz-7IjVDjWTjk2yM1CExE193LYR0Dr4l0CAsdPOA_X_09pEW6DQW39iIWTrJye_3WZMXOhNkfdd3qCZR8ba9l_sQkQYFLf_BpxbfPdmTWa6lOj3uYbfN0rblML3xMSAjZ8X5AVyDmayBkwLWystoJ4_uuMRKbxvB7YlykdhSL4vkxgf_xPHI0fk~"},"loadStarted":false}
+//             //Utils.triggerEvent("load_start_picture", parsed);
+//             Utils.triggerEvent("load_start_picture", {media: loadRequestData.media});
+//             return null;
+//         } else if (loadRequestData.media.contentType == "video/mp4") {
+//             tvApp.stateObj.loadStarted = false;
+//             Utils.triggerEvent("load_start_video", {media: loadRequestData.media});
+//             return null;
+//             //nn return loadRequestData;
+//         } else {    
+//             console.log("loadRequestData " + JSON.stringify(loadRequestData.media.contentType));
+//         }
+//         return loadRequestData;
+//     }
+// );
+// playerManager.addEventListener(
+//   cast.framework.events.category.CORE,
+//   event => {
+//     console.log("playerManager = " + event.type);
+//     console.log("CastContext", "Core event: " + JSON.stringify(event));
+//   }
+// );
 
 const playbackConfig = new cast.framework.PlaybackConfig();
 playbackConfig.autoResumeDuration = 5;
