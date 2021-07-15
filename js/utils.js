@@ -277,7 +277,7 @@ var Utils = (function(){
             //if (!window.messageBus || !tvApp.senderId || !dataObj) return;
             var data = JSON.stringify(dataObj);
             //window.messageBus.send(tvApp.senderId, data);
-            FastCast.sendTheMessage(data);
+            FastCast.sendTheMessage(dataObj);
             //const context = cast.framework.CastReceiverContext.getInstance();
             const CUSTOM_CHANNEL = "urn:x-cast:com.verizon.smartview";
             var context = FastCast.getTheContext();
