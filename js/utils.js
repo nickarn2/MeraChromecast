@@ -277,12 +277,12 @@ var Utils = (function(){
             //if (!window.messageBus || !tvApp.senderId || !dataObj) return;
             var data = JSON.stringify(dataObj);
             //window.messageBus.send(tvApp.senderId, data);
-            //FastCast.sendTheMessage(data);
+            FastCast.sendTheMessage(data);
             //const context = cast.framework.CastReceiverContext.getInstance();
             const CUSTOM_CHANNEL = "urn:x-cast:com.verizon.smartview";
             var context = FastCast.getTheContext();
-            context.sendCustomMessage(CUSTOM_CHANNEL, dataObj);
-            context.sendCustomMessage(CUSTOM_CHANNEL, data);
+            //context.sendCustomMessage(CUSTOM_CHANNEL, dataObj);
+            //context.sendCustomMessage(CUSTOM_CHANNEL, data);
 
             if (dataObj.media_event && dataObj.media_event.event) {
                 triggerEvent("onMediaEvent", {event: dataObj.media_event.event});
