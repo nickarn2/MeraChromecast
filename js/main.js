@@ -486,38 +486,11 @@ var tvApp = {
 };
 
 window.onload = function() {
-//nn clipboard test    
-debugger;
-var one = window.location.href;
-copyToClipboard(one);
-//onsole.log("Clipboard-test", Received Sender Connected event: ' + event.data
-console.log("Clipboard-test", 'Received Sender Connected event: ' + one);
-var promise = navigator.clipboard.writeText(one);
-
-// var copyText = document.getElementById("myInput");
-// console.log("Clipboard-test", 'Received Sender Connected event: ' + copyText);
-
-// /* Select the text field */
-// copyText.select();
-// copyText.setSelectionRange(0, 99999); /* For mobile devices */
-
-// /* Copy the text inside the text field */
-// document.execCommand("copy");
-//nn clipboard test
-
-tvApp.init();
+    tvApp.init();
     // Turn on debugging so that you can see what is going on.  Please turn this off
     // on your production receivers to improve performance.
-    //nn old cast.framework.logger.setLevelValue(cast.framework.LoggerLevel.DEBUG);
     const castDebugLogger = cast.debug.CastDebugLogger.getInstance();
     castDebugLogger.setEnabled(true);
-    castDebugLogger.info(1, "My Message");
-    console.log('My Message 2');
-    castDebugLogger.info("nn", "My Message 3");
-
-    castDebugLogger.info(2, "My Message 4");
-
-    castDebugLogger.info(Constants.APP_INFO, 'My Message 5');
 
     FastCast.init(Constants.APP_NAMESPACE, function(){
         FastCast.onSenderConnected(function(event) {
@@ -532,28 +505,3 @@ tvApp.init();
         FastCast.connect();
     });
 };
-
-function copyToClipboard(text) {
-    if (window.clipboardData && window.clipboardData.setData) {
-        // Internet Explorer-specific code path to prevent textarea being shown while dialog is visible.
-        return window.clipboardData.setData("Text", text);
-
-    }
-    else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
-        var textarea = document.createElement("textarea");
-        textarea.textContent = text;
-        textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in Microsoft Edge.
-        document.body.appendChild(textarea);
-        textarea.select();
-        try {
-            return document.execCommand("copy");  // Security exception may be thrown by some browsers.
-        }
-        catch (ex) {
-            console.warn("Copy to clipboard failed.", ex);
-            return false;
-        }
-        finally {
-            document.body.removeChild(textarea);
-        }
-    }
-}
