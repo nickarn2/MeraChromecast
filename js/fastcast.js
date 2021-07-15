@@ -74,58 +74,8 @@ var FastCast = (function(){
      * @returns {undefined}
      */
      const context = cast.framework.CastReceiverContext.getInstance();
-     const CUSTOM_CHANNEL_TWO = "urn:x-cast:verizon-cloud";
      const CUSTOM_CHANNEL = "urn:x-cast:com.verizon.smartview";
-     function getTheContext() {
-         debugger;
-        try {//nn 
-            context.sendCustomMessage(CUSTOM_CHANNEL, "try text");
-        } catch(e) {
-            console.error(Constants.APP_INFO, TAG, e);
-            debugger;
-        }
-        try {//nn 
-            context.sendCustomMessage('urn:x-cast:verizon-cloud', "try text");
-        } catch(e) {
-            console.error(Constants.APP_INFO, TAG, e);
-            debugger;
-        }
-        // const objToSender = 
-        // {
-        //   type: 'status',
-        //   message: 'Playing'
-        // };
-        // try {
-        //     context.sendCustomMessage('urn:x-cast:verizon-cloud', objToSender);
-        // } catch(e) {
-        //     console.error(Constants.APP_INFO, TAG, e);
-        //     debugger;
-        // }
-        // try {
-        //     context.sendCustomMessage(CUSTOM_CHANNEL, objToSender);
-        // } catch(e) {
-        //     console.error(Constants.APP_INFO, TAG, e);
-        //     debugger;
-        // }
-        // var message_1 = {
-        //     "event": "ERROR"
-        // };
-        // try {
-        //     context.sendCustomMessage("urn:x-cast:verizon-cloud", message_1);
-        // } catch(e) {
-        //     console.error(Constants.APP_INFO, TAG, e);
-        //     debugger;
-        // }
-        // try {
-        //     context.sendCustomMessage("urn:x-cast:com.verizon.smartview", objToSender);
-        // } catch(e) {
-        //     console.error(Constants.APP_INFO, TAG, e);
-        //     debugger;
-        // }
-        return context;
-    }
     function init(namespace, callback) {
-        //const context = cast.framework.CastReceiverContext.getInstance();
         console.log(Constants.APP_INFO, TAG, 'Starting Receiver Manager');
         const playerManager = context.getPlayerManager();
         const options = new cast.framework.CastReceiverOptions();
@@ -155,6 +105,7 @@ context.addCustomMessageListener(CUSTOM_CHANNEL, function(customEvent) {
             type = type && typeof type == 'string' && type.toLowerCase();
             Utils.triggerEvent("load_start_"+type, parsed);
             break;
+
         case 'RESUME':
         case 'PAUSE':
         case 'START_SLIDESHOW':
@@ -169,113 +120,46 @@ context.addCustomMessageListener(CUSTOM_CHANNEL, function(customEvent) {
 
     }
 });
+
 // intercept the LOAD request to be able to read in a contentId and get data
-playerManager.setMessageInterceptor(
-    cast.framework.messages.MessageType.LOAD,
-    loadRequestData => {
-    //nn !!    
-        debugger;
-        console.log("loadRequestData " + JSON.stringify(loadRequestData));
-        if (loadRequestData.media.contentType == "image/jpeg") {
-            tvApp.stateObj.loadStarted = false;
-            //var parsed = {"event":"LOAD_START","media":{"duration":0,"type":"PICTURE","url":"https://lkg07-mediamanager.verizonwireless.com/media/thumbnail/APRjM1LpYsyoemakufXPkNUannOwpUW9GTi_3-8oXLdOiHKiu49bWehVy_UF9sYiSxbnAh-wwFoP7AwfoMhnPmQ%7E?tw=1920&th=1080&ignorePivot=true&NWB=ALvoqLxXjadIC8-3OADJi9XBVfinSCdEnz-7IjVDjWTjk2yM1CExE193LYR0Dr4l0CAsdPOA_X_09pEW6DQW39iIWTrJye_3WZMXOhNkfdd3qCZR8ba9l_sQkQYFLf_BpxbfPdmTWa6lOj3uYbfN0rblML3xMSAjZ8X5AVyDmayBkwLWystoJ4_uuMRKbxvB7YlykdhSL4vkxgf_xPHI0fk~","thumbnail":"https://lkg07-mediamanager.verizonwireless.com/media/thumbnail/APRjM1LpYsyoemakufXPkNUannOwpUW9GTi_3-8oXLdOiHKiu49bWehVy_UF9sYiSxbnAh-wwFoP7AwfoMhnPmQ%7E?tw=200&th=113&ignorePivot=true&NWB=ALvoqLxXjadIC8-3OADJi9XBVfinSCdEnz-7IjVDjWTjk2yM1CExE193LYR0Dr4l0CAsdPOA_X_09pEW6DQW39iIWTrJye_3WZMXOhNkfdd3qCZR8ba9l_sQkQYFLf_BpxbfPdmTWa6lOj3uYbfN0rblML3xMSAjZ8X5AVyDmayBkwLWystoJ4_uuMRKbxvB7YlykdhSL4vkxgf_xPHI0fk~"},"loadStarted":false}
-            //Utils.triggerEvent("load_start_picture", parsed);
-            Utils.triggerEvent("load_start_picture", {media: loadRequestData.media});
-            return null;
-        } else if (loadRequestData.media.contentType == "video/mp4") {
-            tvApp.stateObj.loadStarted = false;
-            Utils.triggerEvent("load_start_video", {media: loadRequestData.media});
-            return null;
-            //nn return loadRequestData;
-        } else {    
-            console.log("loadRequestData " + JSON.stringify(loadRequestData.media.contentType));
-        }
-        return loadRequestData;
-    }
-);
-playerManager.addEventListener(
-  cast.framework.events.category.CORE,
-  event => {
-    console.log("playerManager = " + event.type);
-    console.log("CastContext", "Core event: " + JSON.stringify(event));
-  }
-);
-
-//nn2
-// handler for the 'ready' event
-// works but does not show video :(
-// context.addEventListener(cast.framework.system.EventType.READY,  function(event) {
-//     console.log("!!! ReadyEvent  !!!");
-//     console.log(Constants.APP_INFO, TAG, 'Received Ready event: ' + JSON.stringify(event.data));
-//     window.castReceiverContext.setApplicationState("Application status is ready...");
-//     const deviceCapabilities = context.getDeviceCapabilities();
-//     if (deviceCapabilities &&
-//         deviceCapabilities[cast.framework.system.DeviceCapabilities.IS_HDR_SUPPORTED]) {
-//       // Write your own event handling code, for example
-//       // using the deviceCapabilities[cast.framework.system.DeviceCapabilities.IS_HDR_SUPPORTED] value
+// playerManager.setMessageInterceptor(
+//     cast.framework.messages.MessageType.LOAD,
+//     loadRequestData => {
+//     //nn !!    
+//         debugger;
+//         console.log("loadRequestData " + JSON.stringify(loadRequestData));
+//         if (loadRequestData.media.contentType == "image/jpeg") {
+//             tvApp.stateObj.loadStarted = false;
+//             //var parsed = {"event":"LOAD_START","media":{"duration":0,"type":"PICTURE","url":"https://lkg07-mediamanager.verizonwireless.com/media/thumbnail/APRjM1LpYsyoemakufXPkNUannOwpUW9GTi_3-8oXLdOiHKiu49bWehVy_UF9sYiSxbnAh-wwFoP7AwfoMhnPmQ%7E?tw=1920&th=1080&ignorePivot=true&NWB=ALvoqLxXjadIC8-3OADJi9XBVfinSCdEnz-7IjVDjWTjk2yM1CExE193LYR0Dr4l0CAsdPOA_X_09pEW6DQW39iIWTrJye_3WZMXOhNkfdd3qCZR8ba9l_sQkQYFLf_BpxbfPdmTWa6lOj3uYbfN0rblML3xMSAjZ8X5AVyDmayBkwLWystoJ4_uuMRKbxvB7YlykdhSL4vkxgf_xPHI0fk~","thumbnail":"https://lkg07-mediamanager.verizonwireless.com/media/thumbnail/APRjM1LpYsyoemakufXPkNUannOwpUW9GTi_3-8oXLdOiHKiu49bWehVy_UF9sYiSxbnAh-wwFoP7AwfoMhnPmQ%7E?tw=200&th=113&ignorePivot=true&NWB=ALvoqLxXjadIC8-3OADJi9XBVfinSCdEnz-7IjVDjWTjk2yM1CExE193LYR0Dr4l0CAsdPOA_X_09pEW6DQW39iIWTrJye_3WZMXOhNkfdd3qCZR8ba9l_sQkQYFLf_BpxbfPdmTWa6lOj3uYbfN0rblML3xMSAjZ8X5AVyDmayBkwLWystoJ4_uuMRKbxvB7YlykdhSL4vkxgf_xPHI0fk~"},"loadStarted":false}
+//             //Utils.triggerEvent("load_start_picture", parsed);
+//             Utils.triggerEvent("load_start_picture", {media: loadRequestData.media});
+//             return null;
+//         } else if (loadRequestData.media.contentType == "video/mp4") {
+//             tvApp.stateObj.loadStarted = false;
+//             Utils.triggerEvent("load_start_video", {media: loadRequestData.media});
+//             return null;
+//             //nn return loadRequestData;
+//         } else {    
+//             console.log("loadRequestData " + JSON.stringify(loadRequestData.media.contentType));
+//         }
+//         return loadRequestData;
 //     }
-//     if (deviceCapabilities &&
-//         deviceCapabilities[cast.framework.system.DeviceCapabilities.IS_DV_SUPPORTED]) {
-//       // Write your own event handling code, for example
-//       // using the deviceCapabilities[cast.framework.system.DeviceCapabilities.IS_DV_SUPPORTED] value
-//     }
-// });
-//nn2
-//nn3
-// const playbackConfig = new cast.framework.PlaybackConfig();
-// playbackConfig.autoResumeDuration = 5;
-// const options = cast.framework.CastReceiverOptions();
-// options.customNamespaces = { 'urn:x-cast:testChannel': 'STRING' }
-// context.start({ playbackConfig: playbackConfig });        
-// context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
-//nn3
-//nn4
-//const options = cast.framework.CastReceiverOptions();
-// options.customNamespaces = {
-//     "urn:x-cast:verizon-cloud" : cast.framework.system.MessageType.STRING,
-//     "urn:x-cast:testChannel": cast.framework.system.MessageType.STRING
-// };
-// options.customNamespaces = {
-//     "urn:x-cast:verizon-cloud" : cast.framework.system.MessageType.STRING
-// };
-// options.customNamespaces = Object.assign({});
-// options.customNamespaces[CUSTOM_CHANNEL] = cast.framework.system.MessageType.JSON;
-// options.customNamespaces = {
-//     CUSTOM_CHANNEL: cast.framework.system.MessageType.JSON
-// };
-// context.start(options);
-//nn4
-//nn5
-// const options = new cast.framework.CastReceiverOptions();
-// options.customNamespaces = Object.assign({});
-// options.customNamespaces[CUSTOM_CHANNEL] = cast.framework.system.MessageType.JSON;
+// // );
+// playerManager.addEventListener(
+//   cast.framework.events.category.CORE,
+//   event => {
+//     console.log("playerManager = " + event.type);
+//     console.log("CastContext", "Core event: " + JSON.stringify(event));
+//   }
+// );
 
-//   //receiving sender message
-//   //context.addCustomMessageListener(CUSTOM_CHANNEL,  customEvent => document.getElementById("main").innerHTML = customEvent.data.msg);
-  
-// //   const objToSender = 
-// //   {
-// //     type: 'status',
-// //     message: 'Playing'
-// //   };
-//   //message to sender app
-//   //context.sendCustomMessage(CUSTOM_CHANNEL, objToSender);
-//   context.start(options);
-//   //context.sendCustomMessage(CUSTOM_CHANNEL, objToSender);
-//nn5
-//nn6
 const playbackConfig = new cast.framework.PlaybackConfig();
 playbackConfig.autoResumeDuration = 5;
-//const namespaces = { 'urn:x-cast:testChannel': 'STRING' };
 const namespaces = {'urn:x-cast:com.verizon.smartview' : 'JSON',
 'urn:x-cast:verizon-cloud' : 'JSON' };
 context.start({ playbackConfig: playbackConfig,
     customNamespaces:  namespaces});        
 context.sendCustomMessage(CUSTOM_CHANNEL, "message from receiver");
-
-
-
-//nn6
 
 
 
